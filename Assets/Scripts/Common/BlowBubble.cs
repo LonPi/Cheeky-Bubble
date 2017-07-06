@@ -46,7 +46,7 @@ public class BlowBubble : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 origin = Camera.main.ScreenPointToRay(Input.mousePosition).origin;
-            RaycastHit2D hit = Physics2D.Raycast(origin, Vector3.forward, 1 << LayerMask.NameToLayer("Player"));
+            RaycastHit2D hit = Physics2D.Raycast(origin, Vector3.forward, 1, 1 << LayerMask.NameToLayer("Player"));
             if (hit)
             {
                 OnMouseClick();

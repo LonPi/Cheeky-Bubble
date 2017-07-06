@@ -52,7 +52,7 @@ public class ShopUIManager : MonoBehaviour {
 	
 	void Update ()
     {
-        chickenCurrency = GameDataManager.instance.GetCaughtBirdCount();
+        chickenCurrency = GameDataManager.instance.GetCaughtChickenCount();
         penguinCurrency = GameDataManager.instance.GetCaughtPenguinCount();
 
         // update the top left inventory icons
@@ -148,28 +148,28 @@ public class ShopUIManager : MonoBehaviour {
 
         if (clickedItem == Item.CHICKEN_FEED)
         {
-            remainedChickenCurrency = GameDataManager.instance.GetCaughtBirdCount() - CHICKEN_FEED_PRICE_IN_CHICKENCURRENCY;
+            remainedChickenCurrency = GameDataManager.instance.GetCaughtChickenCount() - CHICKEN_FEED_PRICE_IN_CHICKENCURRENCY;
             GameDataManager.instance.SetChickenCount(remainedChickenCurrency);
             BuffEffectManager.instance.chickenFeed.OnPurchase();
         }
 
         if (clickedItem == Item.PENGUIN_FEED)
         {
-            remainedChickenCurrency = GameDataManager.instance.GetCaughtBirdCount() - PENGUIN_FEED_PRICE_IN_CHICKENCURRENCY;
+            remainedChickenCurrency = GameDataManager.instance.GetCaughtChickenCount() - PENGUIN_FEED_PRICE_IN_CHICKENCURRENCY;
             GameDataManager.instance.SetChickenCount(remainedChickenCurrency);
             BuffEffectManager.instance.penguinFeed.OnPurchase();
         }
 
         if (clickedItem == Item.BUBBLE_GUN)
         {
-            remainedChickenCurrency = GameDataManager.instance.GetCaughtBirdCount() - BUBBLE_GUN_PRICE_IN_CHICKENCURRENCY;
+            remainedChickenCurrency = GameDataManager.instance.GetCaughtChickenCount() - BUBBLE_GUN_PRICE_IN_CHICKENCURRENCY;
             GameDataManager.instance.SetChickenCount(remainedChickenCurrency);
             BuffEffectManager.instance.bubbleGun.OnPurchase();
         }
 
         if (clickedItem == Item.MAGNET)
         {
-            remainedChickenCurrency = GameDataManager.instance.GetCaughtBirdCount() - MAGNET_IN_CHICKENCURRENCY;
+            remainedChickenCurrency = GameDataManager.instance.GetCaughtChickenCount() - MAGNET_IN_CHICKENCURRENCY;
             GameDataManager.instance.SetChickenCount(remainedChickenCurrency);
             BuffEffectManager.instance.magnetBubble.OnPurchase();
         }

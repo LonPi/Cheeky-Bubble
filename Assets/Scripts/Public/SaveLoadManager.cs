@@ -32,6 +32,7 @@ public class SaveLoadManager : MonoBehaviour
         {
             BinaryFormatter bf = new BinaryFormatter();
             file = File.Create(Application.persistentDataPath + "/SavedGame.dat");
+            Debug.Log("SaveLoadManager: last login time: " + data.GetLastLoginTime());
             Debug.Log("SaveLoadManager: SaveLocal(): saving save file into " + Application.persistentDataPath + "/SavedGame.dat");
             bf.Serialize(file, data);
         }
@@ -272,13 +273,18 @@ public class GameData
     int penguinFeedCount;
     int totalItemsPurchasedToDate;
     DateTime lastLoginTime;
+    bool dailyRewardClaimed;
 
     // getters
-
     public DateTime GetLastLoginTime()
     {
         // set utc login time (the earliest time of the day of which user log in)
         return lastLoginTime;
+    }
+
+    public bool GetDailyRewardClaimed()
+    {
+        return dailyRewardClaimed;
     }
 
     public int GetCaughtChickenCount()
@@ -332,6 +338,11 @@ public class GameData
     {
         // set utc login time (the earliest time of the day of which user log in)
         lastLoginTime = date;
+    }
+
+    public void SetDailyRewardClaimed(bool claimed)
+    {
+        dailyRewardClaimed = claimed;
     }
 
     public void SetIsGameStartedFirstTime(bool isGameStartedFirstTime)

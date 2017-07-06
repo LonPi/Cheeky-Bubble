@@ -35,13 +35,11 @@ public class CanvasUI : MonoBehaviour {
         countdownTimer = GameManager.instance.countdownTimerStartVal;
         closePosition = new Vector2(optionSlider.anchoredPosition.x, optionSlider.anchoredPosition.y);
         openPosition = new Vector2(optionSlider.anchoredPosition.x, 0f);
-
-        
     }
 	
 	void Update ()
     {
-        chickenCount.text = GameDataManager.instance.GetCaughtBirdCount().ToString();
+        chickenCount.text = GameDataManager.instance.GetCaughtChickenCount().ToString();
         penguinCount.text = GameDataManager.instance.GetCaughtPenguinCount().ToString();
 
         if (isInCompetitiveMode && start)

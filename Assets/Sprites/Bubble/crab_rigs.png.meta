@@ -1,0 +1,182 @@
+fileFormatVersion: 2
+guid: c059f2847ff2d9048bb9ecc187cccddc
+timeCreated: 1499313416
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: crab_rigs_0
+    21300002: crab_rigs_2
+    21300004: crab_rigs_3
+    21300006: crab_rigs_4
+    21300008: crab_rigs_5
+    21300010: crab_rigs_6
+    21300012: crab_rigs_1
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: crab_rigs_0
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 403
+        width: 29
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: crab_rigs_1
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 403
+        width: 29
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: crab_rigs_2
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 286
+        width: 190
+        height: 98
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: crab_rigs_3
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 108
+        width: 85
+        height: 151
+      alignment: 9
+      pivot: {x: 0.815455, y: 0.084217094}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: crab_rigs_4
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 101
+        width: 70
+        height: 163
+      alignment: 9
+      pivot: {x: 0.21971785, y: 0.074704595}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: crab_rigs_5
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 27
+        width: 96
+        height: 51
+      alignment: 9
+      pivot: {x: 0.67275906, y: 0.77641445}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: crab_rigs_6
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 29
+        width: 96
+        height: 51
+      alignment: 9
+      pivot: {x: 0.2754132, y: 0.7926742}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

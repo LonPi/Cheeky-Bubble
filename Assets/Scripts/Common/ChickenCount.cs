@@ -15,6 +15,6 @@ public class ChickenCount : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        chickenCount.text = GameDataManager.instance.GetCaughtBirdCount().ToString();
+        chickenCount.text = GameDataManager.instance.GetCaughtChickenCount().ToString();
 	}
 }

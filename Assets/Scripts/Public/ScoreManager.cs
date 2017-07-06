@@ -37,7 +37,7 @@ public class ScoreManager : MonoBehaviour
 
     public void Initialize()
     {
-        initChicken = GameDataManager.instance.GetCaughtBirdCount();
+        initChicken = GameDataManager.instance.GetCaughtChickenCount();
         initPenguin = GameDataManager.instance.GetCaughtPenguinCount();
     }
 
@@ -54,7 +54,7 @@ public class ScoreManager : MonoBehaviour
 
     public void OnGameOver()
     {
-        caughtChicken = GameDataManager.instance.GetCaughtBirdCount() - initChicken;
+        caughtChicken = GameDataManager.instance.GetCaughtChickenCount() - initChicken;
         caughtPenguin = GameDataManager.instance.GetCaughtPenguinCount() - initPenguin;
         RecordHighScore();
     }

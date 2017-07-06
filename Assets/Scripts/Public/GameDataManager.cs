@@ -5,15 +5,14 @@ using UnityEngine;
 
 public class GameDataManager : MonoBehaviour
 {
-
     public static GameDataManager instance;
-
     // true if app is opened fresh from menu (not resumed from task manager)
     bool bootFirstTime;
 
     // game variables
     // TODO: save game to cloud when an item expires
     bool isGameStartedFirstTime;
+    bool dailyRewardClaimed;
     int bubbleGunCount;
     int magnetCount;
     int chickenFeedCount;
@@ -22,6 +21,7 @@ public class GameDataManager : MonoBehaviour
     int caughtPenguin;
     int totalItemsPurchasedToDate;
     DateTime lastLoginTime;  // the earliest time of the day where the user logs in
+
     bool asyncNotified;
     DateTime asyncReturnValue;
     GameData data;
@@ -48,6 +48,11 @@ public class GameDataManager : MonoBehaviour
         {
             SaveGame();
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            PlayerPrefs.DeleteAll();
+        }
     }
 
     public void OnSceneLoaded()
@@ -64,6 +69,7 @@ public class GameDataManager : MonoBehaviour
 
         // Save all caught items and inventory items
         data = new GameData();
+        data.SetIsGameStartedFirstTime(isGameStartedFirstTime);
         data.SetCaughtChickenCount(caughtChicken);
         data.SetCaugthPenguinCount(caughtPenguin);
         data.SetTotalItemsPurchasedToDate(totalItemsPurchasedToDate);
@@ -71,34 +77,67 @@ public class GameDataManager : MonoBehaviour
         data.SetPenguinFeedCount(penguinFeedCount);
         data.SetBubbleGunCount(bubbleGunCount);
         data.SetMagnetCount(magnetCount);
+        data.SetLastLoginTime(lastLoginTime);
+        data.SetDailyRewardClaimed(dailyRewardClaimed);
+
+        // save first half of the data before server got back to us
+        SaveLoadManager.instance.SaveData(data);
+
+        DateTime dummy = new DateTime(2017, 7, 10);
         // Get UTC time
         // first check from PlayerPref and compare to current device clock
         // to determine if its necessary to get network time from server
-
-        NetworkHandler.GetNetworkUTCTimeAsync();
-        Debug.Log("starting coroutine...");
-        StartCoroutine(RunOnMainThread());
-        Debug.Log("after starting coroutine..");
+        // we don't want to keep making server connection if its not necessary
+        if ( PlayerPrefs.GetInt("lastLoginDay") != /*DateTime.UtcNow.Day */ dummy.Day || 
+             PlayerPrefs.GetInt("lastLoginMonth") != /*DateTime.UtcNow.Month*/ dummy.Month || 
+             PlayerPrefs.GetInt("lastLoginYear") != /*DateTime.UtcNow.Year*/ dummy.Year)
+        {
+            NetworkHandler.GetNetworkUTCTimeAsync();
+            StartCoroutine(RunOnMainThread());
+        }
     }
 
     // called after async job is finished
-    public void SaveGame(DateTime currentTime)
+    public void SaveGame(DateTime currentServerUTCTime)
     {
-        Debug.Log("SaveGame(): currentTime.Date=" + currentTime + " lastloginTime.Date=" + lastLoginTime);
-        // check if current UTC time is the same day as the one in our saved file
-        if (currentTime.Date > lastLoginTime.Date)
+        //Debug.Log("SaveGame(): server's currentTime.Date=" + currentServerUTCTime.Day + " game's lastloginTime.Date=" + lastLoginTime.Day);
+        currentServerUTCTime = new DateTime(2017, 7, 10);
+        Debug.Log("lastlogin time day: " + lastLoginTime.Day + " faked server utc day -1: " + currentServerUTCTime.AddDays(-1).Day);
+
+        // check if user qualified for reward
+        if (lastLoginTime.Day <= currentServerUTCTime.AddDays(-1).Day)
         {
-            Debug.LogError("SaveGame callback: current date: " + currentTime.Date + " last login time: " + lastLoginTime.Date);
-            // update time
-            lastLoginTime = currentTime;
-            // TODO: give out login bonus
-            Debug.LogError(data.GetLastLoginTime());
+            // update game timestamp to server's current time
+            lastLoginTime = currentServerUTCTime;
+            
+            // Give out login bonus
+            dailyRewardClaimed = false;
+            Debug.Log("GIVING OUT DAILY LOGIN REWARD");
         }
 
-        // continue saving our data
-        data.SetLastLoginTime(lastLoginTime);
-        Debug.Log("data: " + data.GetLastLoginTime());
+        // save last login time even if they don't receive a reward
+        else
+        {
+            lastLoginTime = currentServerUTCTime;
+        }
 
+        // continue saving our data after server got back to us
+        // player might have caught more chicken and penguin during while we were waiting for server reply
+        // save everything
+        PlayerPrefs.SetInt("lastLoginDay", lastLoginTime.Day);
+        PlayerPrefs.SetInt("lastLoginMonth", lastLoginTime.Month);
+        PlayerPrefs.SetInt("lastLoginYear", lastLoginTime.Year);
+        data.SetIsGameStartedFirstTime(isGameStartedFirstTime);
+        data.SetCaughtChickenCount(caughtChicken);
+        data.SetCaugthPenguinCount(caughtPenguin);
+        data.SetTotalItemsPurchasedToDate(totalItemsPurchasedToDate);
+        data.SetChickenFeedCount(chickenFeedCount);
+        data.SetPenguinFeedCount(penguinFeedCount);
+        data.SetBubbleGunCount(bubbleGunCount);
+        data.SetMagnetCount(magnetCount);
+        data.SetLastLoginTime(lastLoginTime);
+        data.SetDailyRewardClaimed(dailyRewardClaimed);
+        Debug.Log("saved lastLoginTime: " + data.GetLastLoginTime());
         SaveLoadManager.instance.SaveData(data);
     }
 
@@ -190,8 +229,14 @@ public class GameDataManager : MonoBehaviour
         magnetCount = Mathf.Clamp(magnetCount, 0, magnetCount);
     }
 
+    // setters for daily login
+    public void SetDailyRewardClaimed(bool claimed)
+    {
+        dailyRewardClaimed = claimed;
+    }
+
     // getters for catchables
-    public int GetCaughtBirdCount()
+    public int GetCaughtChickenCount()
     {
         return caughtChicken;
     }
@@ -222,6 +267,12 @@ public class GameDataManager : MonoBehaviour
         return magnetCount;
     }
 
+    // getter for daily reward
+    public bool GetDailyRewardClaimed()
+    {
+        return dailyRewardClaimed;
+    }
+
     public void LoadGameVariables(GameData localData)
     {
         if (localData == null)
@@ -241,11 +292,13 @@ public class GameDataManager : MonoBehaviour
             caughtChicken = 0;
             caughtPenguin = 0;
             totalItemsPurchasedToDate = 0;
+            dailyRewardClaimed = false;
+            
             // start async to get UTC time
             NetworkHandler.GetNetworkUTCTimeAsync();
-            Debug.Log("starting RunOnMainThread() coroutine...");
             StartCoroutine(RunOnMainThread());
-            Debug.Log("after RunOnMainThread() starting coroutine..");
+
+            // save initialized data
             data = new GameData();
             data.SetIsGameStartedFirstTime(isGameStartedFirstTime);
             data.SetBubbleGunCount(bubbleGunCount);
@@ -255,9 +308,11 @@ public class GameDataManager : MonoBehaviour
             data.SetCaughtChickenCount(caughtChicken);
             data.SetCaugthPenguinCount(caughtPenguin);
             data.SetTotalItemsPurchasedToDate(totalItemsPurchasedToDate);
-
+            data.SetDailyRewardClaimed(dailyRewardClaimed);
+            data.SetLastLoginTime(lastLoginTime);
             Debug.Log("GameDataManager: LoadGameVariables(): Saving initialized data...");
             SaveLoadManager.instance.SaveData(data);
+
             Debug.Log("GameDataManager: LoadGameVariables(): Loading back data...");
             SaveLoadManager.instance.LoadData();
         }
@@ -274,11 +329,12 @@ public class GameDataManager : MonoBehaviour
             caughtPenguin = data.GetCaughtPenguinCount();
             totalItemsPurchasedToDate = data.GetTotalItemsPurchasedToDate();
             lastLoginTime = data.GetLastLoginTime();
+            dailyRewardClaimed = data.GetDailyRewardClaimed();
         }
 
         Debug.Log("LoadGameVariables: Finished loaded from localData: " +
             "caughtChicken: " + caughtChicken + " caughtPenguin: " + caughtPenguin + 
-            " total items purchased: " + totalItemsPurchasedToDate + " last login: " + lastLoginTime);
+            " total items purchased: " + totalItemsPurchasedToDate + " last login: " + lastLoginTime + " reward claimed: " + dailyRewardClaimed);
     }
 
     public void LoadGameVariables(GameData cloudData, GameData localData)
@@ -296,6 +352,7 @@ public class GameDataManager : MonoBehaviour
             caughtPenguin = cloudData.GetCaughtPenguinCount();
             totalItemsPurchasedToDate = cloudData.GetTotalItemsPurchasedToDate();
             lastLoginTime = cloudData.GetLastLoginTime();
+            dailyRewardClaimed = cloudData.GetDailyRewardClaimed();
             isCloudDataLoaded = true;
             Debug.Log("LoadGameVariables(): cant find local save file.. loaded from cloud file");
         }
@@ -350,6 +407,8 @@ public class GameDataManager : MonoBehaviour
             caughtPenguin = data.GetCaughtPenguinCount();
             totalItemsPurchasedToDate = data.GetTotalItemsPurchasedToDate();
             lastLoginTime = data.GetLastLoginTime();
+            dailyRewardClaimed = cloudData.GetDailyRewardClaimed();
+
 
             // if local version is more up to date, replace cloud version
             if (!isCloudDataLoaded)

@@ -62,7 +62,6 @@ public class GameManager : MonoBehaviour
             _chickenGeneratorRight = go.GetComponent<ChickenGenerator>();
             _penguinGeneratorRight = go.GetComponent<PenguinGenerator>();
         }
-        
     }
 
     public void DisableUserInput()
