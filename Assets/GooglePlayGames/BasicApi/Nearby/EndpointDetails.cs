@@ -27,10 +27,10 @@ namespace GooglePlayGames.BasicApi.Nearby
 
         public EndpointDetails(string endpointId, string deviceId, string name, string serviceId)
         {
-            this.mEndpointId = Misc.CheckNotNull(endpointId);
-            this.mDeviceId = Misc.CheckNotNull(deviceId);
-            this.mName = Misc.CheckNotNull(name);
-            this.mServiceId = Misc.CheckNotNull(serviceId);
+            this.mEndpointId = bubble.CheckNotNull(endpointId);
+            this.mDeviceId = bubble.CheckNotNull(deviceId);
+            this.mName = bubble.CheckNotNull(name);
+            this.mServiceId = bubble.CheckNotNull(serviceId);
         }
 
         public string EndpointId

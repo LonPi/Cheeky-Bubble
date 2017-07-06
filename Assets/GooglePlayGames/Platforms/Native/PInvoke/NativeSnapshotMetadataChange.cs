@@ -75,7 +75,7 @@ namespace GooglePlayGames.Native.PInvoke
 
             internal Builder SetCoverImageFromPngData(byte[] pngData)
             {
-                Misc.CheckNotNull(pngData);
+                bubble.CheckNotNull(pngData);
                 B.SnapshotMetadataChange_Builder_SetCoverImageFromPngData(SelfPtr(),
                     pngData, new UIntPtr((ulong)pngData.LongLength));
                 return this;

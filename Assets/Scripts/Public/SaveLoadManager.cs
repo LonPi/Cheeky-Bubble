@@ -207,7 +207,8 @@ public class SaveLoadManager : MonoBehaviour
         MemoryStream memStream = new MemoryStream();
         // get game data from Game Manager
         GameData data = GameDataManager.instance.GetGameData();
-        Debug.Log("SaveLoadManager: SaveGame(): saving chicken count: " + data.GetCaughtChickenCount() + " penguin count: " + data.GetCaughtPenguinCount() + " to cloud");
+        Debug.Log("SaveLoadManager: SaveGame(): saving chicken count: " + data.GetCaughtChickenCount() + " penguin count: " + data.GetCaughtPenguinCount() + 
+            "claimed reward: " + data.GetDailyRewardClaimed() + " last login time: " + data.GetLastLoginTime() + " to cloud");
         bf.Serialize(memStream, data);
         byte[] dataToSave = memStream.ToArray();
         SavedGameMetadataUpdate update = new SavedGameMetadataUpdate.Builder().Build();

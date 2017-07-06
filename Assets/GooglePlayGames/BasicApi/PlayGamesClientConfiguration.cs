@@ -333,7 +333,7 @@ namespace GooglePlayGames.BasicApi
             /// <param name="invitationDelegate">Invitation delegate.</param>
             public Builder WithInvitationDelegate(InvitationReceivedDelegate invitationDelegate)
             {
-                this.mInvitationDelegate = Misc.CheckNotNull(invitationDelegate);
+                this.mInvitationDelegate = bubble.CheckNotNull(invitationDelegate);
                 return this;
             }
 
@@ -345,7 +345,7 @@ namespace GooglePlayGames.BasicApi
             /// <param name="matchDelegate">Match delegate.</param>
             public Builder WithMatchDelegate(MatchDelegate matchDelegate)
             {
-                this.mMatchDelegate = Misc.CheckNotNull(matchDelegate);
+                this.mMatchDelegate = bubble.CheckNotNull(matchDelegate);
                 return this;
             }
 

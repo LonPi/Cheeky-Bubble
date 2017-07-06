@@ -34,12 +34,12 @@ namespace GooglePlayGames.Native
 
         internal NativeEventClient(EventManager manager)
         {
-            this.mEventManager = Misc.CheckNotNull(manager);
+            this.mEventManager = bubble.CheckNotNull(manager);
         }
 
         public void FetchAllEvents(DataSource source, Action<ResponseStatus, List<IEvent>> callback)
         {
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(callback);
             callback = CallbackUtils.ToOnGameThread<ResponseStatus, List<IEvent>>(callback);
 
             mEventManager.FetchAll(ConversionUtils.AsDataSource(source),
@@ -62,8 +62,8 @@ namespace GooglePlayGames.Native
         public void FetchEvent(DataSource source, string eventId,
                            Action<ResponseStatus, IEvent> callback)
         {
-            Misc.CheckNotNull(eventId);
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(eventId);
+            bubble.CheckNotNull(callback);
 
             mEventManager.Fetch(ConversionUtils.AsDataSource(source), eventId,
                 response =>
@@ -84,7 +84,7 @@ namespace GooglePlayGames.Native
 
         public void IncrementEvent(string eventId, uint stepsToIncrement)
         {
-            Misc.CheckNotNull(eventId);
+            bubble.CheckNotNull(eventId);
             mEventManager.Increment(eventId, stepsToIncrement);
         }
 

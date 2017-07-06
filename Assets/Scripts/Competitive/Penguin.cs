@@ -73,6 +73,7 @@ public class Penguin : MonoBehaviour, FlyingObjectInterface
                 isBeingAttractedIntoBubble = false;
                 isFreeFalling = true;
                 animator.SetTrigger("chickenFall");
+                SoundManager.Instance.BirdPlayOneShot(SoundManager.Instance.penguinCatch);
             }
         }
     }
@@ -119,6 +120,7 @@ public class Penguin : MonoBehaviour, FlyingObjectInterface
         speed = speed + speedIncreaseAmt;
         rb2d.velocity = speed * direction;
         animator.SetTrigger("chickenRun");
+        SoundManager.Instance.BirdPlayOneShot(SoundManager.Instance.birdRunAway);
         velocityIncreased = true;
     }
 

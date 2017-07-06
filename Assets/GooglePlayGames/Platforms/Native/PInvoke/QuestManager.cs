@@ -32,7 +32,7 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal QuestManager(GameServices services)
         {
-            mServices = Misc.CheckNotNull(services);
+            mServices = bubble.CheckNotNull(services);
         }
 
         internal void Fetch(Types.DataSource source, string questId, Action<FetchResponse> callback)

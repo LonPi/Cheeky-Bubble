@@ -34,7 +34,7 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal PlayerManager(GameServices services)
         {
-            mGameServices = Misc.CheckNotNull(services);
+            mGameServices = bubble.CheckNotNull(services);
         }
 
         internal void FetchSelf(Action<FetchSelfResponse> callback)

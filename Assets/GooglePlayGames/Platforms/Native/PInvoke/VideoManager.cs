@@ -34,7 +34,7 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal VideoManager(GameServices services)
         {
-            mServices = Misc.CheckNotNull(services);
+            mServices = bubble.CheckNotNull(services);
         }
 
         internal int NumCaptureModes

@@ -29,7 +29,7 @@ namespace GooglePlayGames.BasicApi.Nearby
             Logger.d("Constructing ConnectionRequest");
             mRemoteEndpoint = new EndpointDetails(remoteEndpointId, remoteDeviceId,
                 remoteEndpointName, serviceId);
-            this.mPayload = Misc.CheckNotNull(payload);
+            this.mPayload = bubble.CheckNotNull(payload);
         }
 
         public EndpointDetails RemoteEndpoint

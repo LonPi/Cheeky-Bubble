@@ -36,7 +36,7 @@ sealed class AndroidPlatformConfiguration : PlatformConfiguration {
 
     internal void SetOptionalIntentHandlerForUI(Action<IntPtr> intentHandler)
     {
-        Misc.CheckNotNull(intentHandler);
+        bubble.CheckNotNull(intentHandler);
         C.AndroidPlatformConfiguration_SetOptionalIntentHandlerForUI(SelfPtr(),
         InternalIntentHandler, Callbacks.ToIntPtr(intentHandler));
     }

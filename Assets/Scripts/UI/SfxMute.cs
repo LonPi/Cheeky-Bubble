@@ -8,7 +8,7 @@ public class SfxMute : MonoBehaviour {
     AudioSource bearFx,
         birdFx,
         uiFx,
-        miscFx,
+        bubbleFx,
         shopFx;
     Button btn;
     bool muted;
@@ -18,7 +18,7 @@ public class SfxMute : MonoBehaviour {
         bearFx = GameObject.Find("BearFX").GetComponent<AudioSource>();
         birdFx = GameObject.Find("BirdFX").GetComponent<AudioSource>();
         uiFx = GameObject.Find("UiFX").GetComponent<AudioSource>();
-        miscFx = GameObject.Find("MiscFX").GetComponent<AudioSource>();
+        bubbleFx = GameObject.Find("BubbleFX").GetComponent<AudioSource>();
         shopFx = GameObject.Find("ShopFX").GetComponent<AudioSource>();
         btn = gameObject.GetComponent<Button>();
 
@@ -44,12 +44,13 @@ public class SfxMute : MonoBehaviour {
     
     public void TaskOnClick()
     {
+        SoundManager.Instance.UiPlayOneShot(SoundManager.Instance.buttonClick);
         if (muted)
         {
             bearFx.volume = 1;
             birdFx.volume = 1;
             uiFx.volume = 1;
-            miscFx.volume = 1;
+            bubbleFx.volume = 1;
             shopFx.volume = 1;
             btn.image.overrideSprite = unmute;
             muted = false;
@@ -59,7 +60,7 @@ public class SfxMute : MonoBehaviour {
             bearFx.volume = 0;
             birdFx.volume = 0;
             uiFx.volume = 0;
-            miscFx.volume = 0;
+            bubbleFx.volume = 0;
             shopFx.volume = 0;
             btn.image.overrideSprite = mute;
             muted = true;

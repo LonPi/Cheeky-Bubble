@@ -73,7 +73,7 @@ namespace GooglePlayGames.Native
             IClientImpl clientImpl)
         {
             PlayGamesHelperObject.CreateObject();
-            this.mConfiguration = Misc.CheckNotNull(configuration);
+            this.mConfiguration = bubble.CheckNotNull(configuration);
             this.clientImpl = clientImpl;
         }
 
@@ -806,7 +806,7 @@ namespace GooglePlayGames.Native
         {
             callback = AsOnGameThreadCallback(callback);
 
-            Misc.CheckNotNull(achId);
+            bubble.CheckNotNull(achId);
 
             InitializeGameServices();
 
@@ -850,7 +850,7 @@ namespace GooglePlayGames.Native
         /// <seealso cref="GooglePlayGames.BasicApi.IPlayGamesClient.IncrementAchievement"/>
         public void IncrementAchievement(string achId, int steps, Action<bool> callback)
         {
-            Misc.CheckNotNull(achId);
+            bubble.CheckNotNull(achId);
             callback = AsOnGameThreadCallback(callback);
 
             InitializeGameServices();
@@ -899,7 +899,7 @@ namespace GooglePlayGames.Native
         /// <seealso cref="GooglePlayGames.BasicApi.IPlayGamesClient.SetStepsAtLeast"/>
         public void SetStepsAtLeast(string achId, int steps, Action<bool> callback)
         {
-            Misc.CheckNotNull(achId);
+            bubble.CheckNotNull(achId);
             callback = AsOnGameThreadCallback(callback);
 
             InitializeGameServices();

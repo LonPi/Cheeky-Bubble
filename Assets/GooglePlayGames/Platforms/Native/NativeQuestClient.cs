@@ -35,13 +35,13 @@ using Types = GooglePlayGames.Native.Cwrapper.Types;
 
         internal NativeQuestClient(QuestManager manager)
         {
-            this.mManager = Misc.CheckNotNull(manager);
+            this.mManager = bubble.CheckNotNull(manager);
         }
 
         public void Fetch(DataSource source, string questId, Action<ResponseStatus, IQuest> callback)
         {
-            Misc.CheckNotNull(questId);
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(questId);
+            bubble.CheckNotNull(callback);
             callback = CallbackUtils.ToOnGameThread(callback);
             mManager.Fetch(ConversionUtils.AsDataSource(source), questId,
                 response =>
@@ -62,7 +62,7 @@ using Types = GooglePlayGames.Native.Cwrapper.Types;
         public void FetchMatchingState(DataSource source, QuestFetchFlags flags,
                                    Action<ResponseStatus, List<IQuest>> callback)
         {
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(callback);
             callback = CallbackUtils.ToOnGameThread(callback);
 
             mManager.FetchList(ConversionUtils.AsDataSource(source), (int)flags,
@@ -83,7 +83,7 @@ using Types = GooglePlayGames.Native.Cwrapper.Types;
 
         public void ShowAllQuestsUI(Action<QuestUiResult, IQuest, IQuestMilestone> callback)
         {
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(callback);
             callback = CallbackUtils.ToOnGameThread<QuestUiResult, IQuest, IQuestMilestone>(callback);
             mManager.ShowAllQuestUI(FromQuestUICallback(callback));
         }
@@ -91,8 +91,8 @@ using Types = GooglePlayGames.Native.Cwrapper.Types;
         public void ShowSpecificQuestUI(IQuest quest,
                                     Action<QuestUiResult, IQuest, IQuestMilestone> callback)
         {
-            Misc.CheckNotNull(quest);
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(quest);
+            bubble.CheckNotNull(callback);
             callback = CallbackUtils.ToOnGameThread<QuestUiResult, IQuest, IQuestMilestone>(callback);
 
             var convertedQuest = quest as NativeQuest;
@@ -168,8 +168,8 @@ using Types = GooglePlayGames.Native.Cwrapper.Types;
 
         public void Accept(IQuest quest, Action<QuestAcceptStatus, IQuest> callback)
         {
-            Misc.CheckNotNull(quest);
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(quest);
+            bubble.CheckNotNull(callback);
             callback = CallbackUtils.ToOnGameThread<QuestAcceptStatus, IQuest>(callback);
 
             var convertedQuest = quest as NativeQuest;
@@ -219,8 +219,8 @@ using Types = GooglePlayGames.Native.Cwrapper.Types;
         public void ClaimMilestone(IQuestMilestone milestone,
                                Action<QuestClaimMilestoneStatus, IQuest, IQuestMilestone> callback)
         {
-            Misc.CheckNotNull(milestone);
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(milestone);
+            bubble.CheckNotNull(callback);
             callback = CallbackUtils.ToOnGameThread<QuestClaimMilestoneStatus, IQuest, IQuestMilestone>(
                 callback);
 

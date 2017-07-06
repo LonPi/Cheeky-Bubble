@@ -10,11 +10,7 @@ public class ChickenFeed : MonoBehaviour {
     bool timerStart;
     bool purchased;
     float timer;
-
-    void Awake()
-    {
-        InitReferences();
-    }
+    float timeElapsed;
 	
 	void Update ()
     {
@@ -30,6 +26,14 @@ public class ChickenFeed : MonoBehaviour {
     bool UpdateTimer()
     {
         timer -= Time.deltaTime;
+        timeElapsed += Time.deltaTime;
+
+        if (timeElapsed >= duration)
+        {
+            GameDataManager.instance.DecrementChickenFeedCount();
+            timeElapsed = 0;
+        }
+
         if (timer <= 0)
         {
             
@@ -47,6 +51,8 @@ public class ChickenFeed : MonoBehaviour {
             generatorLeft = GeneratorLeft.GetComponent<ChickenGenerator>();
             generatorRight = GeneratorRight.GetComponent<ChickenGenerator>();
         }
+
+        
     }
 
     public void OnSceneLoaded()
@@ -56,6 +62,8 @@ public class ChickenFeed : MonoBehaviour {
         {
             EquipChickenFeed();
         }
+
+        
     }
 
     public void OnPurchase()
@@ -95,6 +103,16 @@ public class ChickenFeed : MonoBehaviour {
         purchased = false;
         timerStart = false;
         timer = 0;
+    }
+
+    public void OnLoadGame()
+    {
+        // if there exists chicken feed in inventory, start count down when we start the game
+        if (GameDataManager.instance.GetChickenFeedCount() > 0)
+        {
+            timerStart = true;
+            timer = GameDataManager.instance.GetChickenFeedCount() * duration;
+        }
     }
 
     public float RemainingTime()

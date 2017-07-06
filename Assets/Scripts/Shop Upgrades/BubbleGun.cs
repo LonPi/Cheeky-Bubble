@@ -8,6 +8,7 @@ public class BubbleGun : MonoBehaviour {
     bool timerStart;
     float timer;
     bool purchased;
+    float timeElapsed;
 
     void Update()
     {
@@ -23,6 +24,14 @@ public class BubbleGun : MonoBehaviour {
     bool UpdateTimer()
     {
         timer -= Time.deltaTime;
+        timeElapsed += Time.deltaTime;
+
+        if (timeElapsed >= duration)
+        {
+            GameDataManager.instance.DecrementBubbleGunCount();
+            timeElapsed = 0;
+        }
+
         if (timer <= 0)
         {
             return false;
@@ -54,6 +63,17 @@ public class BubbleGun : MonoBehaviour {
             BlowBubble.Instance.UnequipBubbleGun();
         }
     }
+
+    public void OnLoadGame()
+    {
+        // if there exists bubble gun in inventory, start count down when we start the game
+        if (GameDataManager.instance.GetBubbleGunCount() > 0)
+        {
+            timerStart = true;
+            timer = GameDataManager.instance.GetBubbleGunCount() * duration;
+        }
+    }
+
     void OnPurchaseExpired()
     {
         purchased = false;

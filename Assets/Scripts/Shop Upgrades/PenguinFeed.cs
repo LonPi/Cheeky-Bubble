@@ -10,11 +10,7 @@ public class PenguinFeed : MonoBehaviour {
     bool timerStart;
     bool purchased;
     float timer;
-
-    void Awake ()
-    {
-        InitReferences();
-    }
+    float timeElapsed;
 	
     void Update()
     {
@@ -30,6 +26,14 @@ public class PenguinFeed : MonoBehaviour {
     bool UpdateTimer()
     {
         timer -= Time.deltaTime;
+        timeElapsed += Time.deltaTime;
+
+        if (timeElapsed >= duration)
+        {
+            GameDataManager.instance.DecrementPenguinFeedCount();
+            timeElapsed = 0;
+        }
+
         if (timer <= 0)
         {
             
@@ -48,6 +52,8 @@ public class PenguinFeed : MonoBehaviour {
             generatorRight = GeneratorRight.GetComponent<PenguinGenerator>();
             EquipPenguinFeed();
         }
+
+        
     }
 
     public void OnSceneLoaded()
@@ -86,6 +92,16 @@ public class PenguinFeed : MonoBehaviour {
         timerStart = true;
         // time is stackable
         timer += duration;
+    }
+
+    public void OnLoadGame()
+    {
+        // if there exists penguin feed in inventory, start count down when we start the game
+        if (GameDataManager.instance.GetPenguinFeedCount() > 0)
+        {
+            timerStart = true;
+            timer = GameDataManager.instance.GetPenguinFeedCount() * duration;
+        }
     }
 
     public void OnPurchaseExpired()

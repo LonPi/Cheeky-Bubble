@@ -27,6 +27,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1178321519143924
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4051644781062476}
+  - component: {fileID: 82696330289608106}
+  m_Layer: 0
+  m_Name: BGM
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1292654388162270
 GameObject:
   m_ObjectHideFlags: 0
@@ -69,7 +85,7 @@ GameObject:
   - component: {fileID: 4493591579522128}
   - component: {fileID: 82219755521862442}
   m_Layer: 0
-  m_Name: MiscFX
+  m_Name: BubbleFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,6 +123,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4051644781062476
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1178321519143924}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4823575849244222}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4413203974550364
 Transform:
   m_ObjectHideFlags: 1
@@ -187,6 +216,7 @@ Transform:
   - {fileID: 4500837894470658}
   - {fileID: 4493591579522128}
   - {fileID: 4660979909620674}
+  - {fileID: 4051644781062476}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -281,9 +311,89 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!82 &82696330289608106
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1178321519143924}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d1788840ff86ebf42bfa767f3c9f8bc2, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -521,7 +631,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -604,17 +714,16 @@ MonoBehaviour:
   bearFxSource: {fileID: 82792012771042078}
   birdFxSource: {fileID: 82272701545552516}
   uiFxSource: {fileID: 82728108998585468}
-  miscFxSource: {fileID: 82219755521862442}
+  bubbleFxSource: {fileID: 82219755521862442}
   shopFxSource: {fileID: 82842885757576110}
-  bubbleBlow: {fileID: 0}
-  bubblePop: {fileID: 0}
-  birdCaught: {fileID: 0}
-  birdRunAway: {fileID: 0}
-  birdFall: {fileID: 0}
+  bgmSource: {fileID: 82696330289608106}
+  bubblePopBlank: {fileID: 8300000, guid: adb796495ba8a044fb099d43bc657d8b, type: 3}
+  bubblePopCatch: {fileID: 8300000, guid: bc4e241e34ed69c47a61e2f5ae0b4d5c, type: 3}
+  chickenCatch: {fileID: 8300000, guid: b4b191bb1ec98f74bb03f2373e1b712f, type: 3}
+  penguinCatch: {fileID: 8300000, guid: 6addabace56c8904ab15f17bd6061f70, type: 3}
+  birdRunAway: {fileID: 8300000, guid: 937094536ab720249aa0372134447efd, type: 3}
   bearHappy: {fileID: 0}
   bearAngry: {fileID: 0}
-  bearShock: {fileID: 0}
-  bearFail: {fileID: 0}
-  buttonClick: {fileID: 0}
-  timeOut: {fileID: 0}
-  newHighScore: {fileID: 0}
+  buttonClick: {fileID: 8300000, guid: c9ac2faedc4e5bd4dafca11c065f7ebe, type: 3}
+  timeOut: {fileID: 8300000, guid: 27c03b8e687f5fa4aaafe83136579d9a, type: 3}
+  shopBuy: {fileID: 8300000, guid: 044853150e6e51241b2b659549c061e6, type: 3}

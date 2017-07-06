@@ -34,7 +34,7 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal LeaderboardManager(GameServices services)
         {
-            mServices = Misc.CheckNotNull(services);
+            mServices = bubble.CheckNotNull(services);
         }
 
         internal int LeaderboardMaxResults
@@ -47,7 +47,7 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal void SubmitScore(string leaderboardId, long score, string metadata)
         {
-            Misc.CheckNotNull(leaderboardId, "leaderboardId");
+            bubble.CheckNotNull(leaderboardId, "leaderboardId");
             Logger.d("Native Submitting score: " + score +
                 " for lb " + leaderboardId + " with metadata: " + metadata);
             C.LeaderboardManager_SubmitScore(mServices.AsHandle(), leaderboardId,
@@ -56,7 +56,7 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal void ShowAllUI(Action<Status.UIStatus> callback)
         {
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(callback);
 
             C.LeaderboardManager_ShowAllUI(mServices.AsHandle(), Callbacks.InternalShowUICallback,
                 Callbacks.ToIntPtr(callback));
@@ -65,7 +65,7 @@ namespace GooglePlayGames.Native.PInvoke
         internal void ShowUI(string leaderboardId, 
             LeaderboardTimeSpan span, Action<Status.UIStatus> callback)
         {
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(callback);
 
             C.LeaderboardManager_ShowUI(mServices.AsHandle(), leaderboardId,
                 (Types.LeaderboardTimeSpan)span,

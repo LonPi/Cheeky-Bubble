@@ -7,21 +7,20 @@ public class SoundManager : MonoBehaviour
         bearFxSource,
         birdFxSource,
         uiFxSource,
-        miscFxSource,
-        shopFxSource;
+        bubbleFxSource,
+        shopFxSource,
+        bgmSource;
     public AudioClip
-        bubbleBlow,
-        bubblePop,
-        birdCaught,
+        bubblePopBlank,
+        bubblePopCatch,
+        chickenCatch,
+        penguinCatch,
         birdRunAway,
-        birdFall,
         bearHappy,
         bearAngry,
-        bearShock,
-        bearFail,
         buttonClick,
         timeOut,
-        newHighScore;
+        shopBuy;
 
     public static SoundManager Instance = null;
 
@@ -34,12 +33,12 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void PlayerPlayOneShot(AudioClip clip)
+    public void BearPlayOneShot(AudioClip clip)
     {
         bearFxSource.PlayOneShot(clip);
     }
 
-    public void EnemyPlayOneShot(AudioClip clip)
+    public void BirdPlayOneShot(AudioClip clip)
     {
         birdFxSource.PlayOneShot(clip);
     }
@@ -49,12 +48,12 @@ public class SoundManager : MonoBehaviour
         uiFxSource.PlayOneShot(clip);
     }
 
-    public void MiscPlayOneShot(AudioClip clip)
+    public void BubblePlayOneShot(AudioClip clip)
     {
-        miscFxSource.PlayOneShot(clip);
+        bubbleFxSource.PlayOneShot(clip);
     }
 
-    public void BuffPlayOneShot(AudioClip clip)
+    public void ShopPlayOneShot(AudioClip clip)
     {
         shopFxSource.PlayOneShot(clip);
     }

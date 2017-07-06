@@ -33,7 +33,7 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal EventManager(GameServices services)
         {
-            mServices = Misc.CheckNotNull(services);
+            mServices = bubble.CheckNotNull(services);
         }
 
         internal void FetchAll(Types.DataSource source,

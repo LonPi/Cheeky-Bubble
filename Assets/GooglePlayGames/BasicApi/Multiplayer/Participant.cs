@@ -45,7 +45,7 @@ namespace GooglePlayGames.BasicApi.Multiplayer
         private string mParticipantId = string.Empty;
         private ParticipantStatus mStatus = ParticipantStatus.Unknown;
         private Player mPlayer = null;
-        private bool mIsConnectedToRoom = false;
+        private bool bubbleonnectedToRoom = false;
 
         /// Gets the participant's display name.
         public string DisplayName
@@ -102,7 +102,7 @@ namespace GooglePlayGames.BasicApi.Multiplayer
         {
             get
             {
-                return mIsConnectedToRoom;
+                return bubbleonnectedToRoom;
             }
         }
 
@@ -122,14 +122,14 @@ namespace GooglePlayGames.BasicApi.Multiplayer
             mParticipantId = participantId;
             mStatus = status;
             mPlayer = player;
-            mIsConnectedToRoom = connectedToRoom;
+            bubbleonnectedToRoom = connectedToRoom;
         }
 
         public override string ToString()
         {
             return string.Format("[Participant: '{0}' (id {1}), status={2}, " +
                 "player={3}, connected={4}]", mDisplayName, mParticipantId, mStatus.ToString(),
-                mPlayer == null ? "NULL" : mPlayer.ToString(), mIsConnectedToRoom);
+                mPlayer == null ? "NULL" : mPlayer.ToString(), bubbleonnectedToRoom);
         }
 
         public int CompareTo(Participant other)

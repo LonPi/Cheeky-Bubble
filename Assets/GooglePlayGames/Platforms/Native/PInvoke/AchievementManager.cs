@@ -32,19 +32,19 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal AchievementManager(GameServices services)
         {
-            mServices = Misc.CheckNotNull(services);
+            mServices = bubble.CheckNotNull(services);
         }
 
         internal void ShowAllUI(Action<CommonErrorStatus.UIStatus> callback)
         {
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(callback);
             C.AchievementManager_ShowAllUI(mServices.AsHandle(),
                 Callbacks.InternalShowUICallback, Callbacks.ToIntPtr(callback));
         }
 
         internal void FetchAll(Action<FetchAllResponse> callback)
         {
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(callback);
 
             C.AchievementManager_FetchAll(mServices.AsHandle(), Types.DataSource.CACHE_OR_NETWORK,
                 InternalFetchAllCallback,
@@ -60,8 +60,8 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal void Fetch(string achId, Action<FetchResponse> callback)
         {
-            Misc.CheckNotNull(achId);
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(achId);
+            bubble.CheckNotNull(callback);
             C.AchievementManager_Fetch(mServices.AsHandle(), Types.DataSource.CACHE_OR_NETWORK,
                 achId, InternalFetchCallback,
                 Callbacks.ToIntPtr<FetchResponse>(callback, FetchResponse.FromPointer));
@@ -76,7 +76,7 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal void Increment(string achievementId, uint numSteps)
         {
-            Misc.CheckNotNull(achievementId);
+            bubble.CheckNotNull(achievementId);
 
             C.AchievementManager_Increment(mServices.AsHandle(),
                 achievementId, numSteps);
@@ -84,7 +84,7 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal void SetStepsAtLeast(string achivementId, uint numSteps)
         {
-            Misc.CheckNotNull(achivementId);
+            bubble.CheckNotNull(achivementId);
 
             C.AchievementManager_SetStepsAtLeast(mServices.AsHandle(),
                 achivementId, numSteps);
@@ -92,14 +92,14 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal void Reveal(string achievementId)
         {
-            Misc.CheckNotNull(achievementId);
+            bubble.CheckNotNull(achievementId);
 
             C.AchievementManager_Reveal(mServices.AsHandle(), achievementId);
         }
 
         internal void Unlock(string achievementId)
         {
-            Misc.CheckNotNull(achievementId);
+            bubble.CheckNotNull(achievementId);
 
             C.AchievementManager_Unlock(mServices.AsHandle(), achievementId);
         }

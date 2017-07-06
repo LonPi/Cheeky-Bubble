@@ -36,8 +36,8 @@ namespace GooglePlayGames.Native
 
         internal NativeRealtimeMultiplayerClient(NativeClient nativeClient, RealtimeManager manager)
         {
-            mNativeClient = Misc.CheckNotNull(nativeClient);
-            mRealtimeManager = Misc.CheckNotNull(manager);
+            mNativeClient = bubble.CheckNotNull(nativeClient);
+            mRealtimeManager = bubble.CheckNotNull(manager);
             mCurrentSession = GetTerminatedSession();
 
             // register callback for when the application pauses.  OnPause
@@ -459,7 +459,7 @@ namespace GooglePlayGames.Native
 
             internal RoomSession(RealtimeManager manager, RealTimeMultiplayerListener listener)
             {
-                mManager = Misc.CheckNotNull(manager);
+                mManager = bubble.CheckNotNull(manager);
                 mListener = new OnGameThreadForwardingListener(listener);
                 EnterState(new BeforeRoomCreateStartedState(this), false);
                 mStillPreRoomCreation = true;
@@ -542,7 +542,7 @@ namespace GooglePlayGames.Native
             {
                 lock (mLifecycleLock)
                 {
-                    mState = Misc.CheckNotNull(handler);
+                    mState = bubble.CheckNotNull(handler);
                     if (fireStateEnteredEvent)
                     {
                         Logger.d("Entering state: " + handler.GetType().Name);
@@ -595,7 +595,7 @@ namespace GooglePlayGames.Native
                         return;
                     }
 
-                    mCurrentPlayerId = Misc.CheckNotNull(currentPlayerId);
+                    mCurrentPlayerId = bubble.CheckNotNull(currentPlayerId);
                     mStillPreRoomCreation = false;
                     EnterState(new RoomCreationPendingState(this));
                     createRoom.Invoke();
@@ -708,7 +708,7 @@ namespace GooglePlayGames.Native
 
             internal OnGameThreadForwardingListener(RealTimeMultiplayerListener listener)
             {
-                mListener = Misc.CheckNotNull(listener);
+                mListener = bubble.CheckNotNull(listener);
             }
 
             public void RoomSetupProgress(float percent)
@@ -854,7 +854,7 @@ namespace GooglePlayGames.Native
 
             internal MessagingEnabledState(RoomSession session, NativeRealTimeRoom room)
             {
-                mSession = Misc.CheckNotNull(session);
+                mSession = bubble.CheckNotNull(session);
                 UpdateCurrentRoom(room);
             }
 
@@ -864,7 +864,7 @@ namespace GooglePlayGames.Native
                 {
                     mRoom.Dispose();
                 }
-                mRoom = Misc.CheckNotNull(room);
+                mRoom = bubble.CheckNotNull(room);
                 mNativeParticipants = mRoom.Participants().ToDictionary(p => p.Id());
                 mParticipants = mNativeParticipants.Values
                 .Select(p => p.AsParticipant())
@@ -929,20 +929,20 @@ namespace GooglePlayGames.Native
                 if (isReliable)
                 {
                     mSession.Manager().SendReliableMessage(mRoom, mNativeParticipants[recipientId],
-                        Misc.GetSubsetBytes(data, offset, length), null);
+                        bubble.GetSubsetBytes(data, offset, length), null);
                 }
                 else
                 {
                     mSession.Manager().SendUnreliableMessageToSpecificParticipants(mRoom,
                         new List<MultiplayerParticipant> { mNativeParticipants[recipientId] },
-                        Misc.GetSubsetBytes(data, offset, length));
+                        bubble.GetSubsetBytes(data, offset, length));
                 }
             }
 
             internal override void SendToAll(byte[] data, int offset,
                                          int length, bool isReliable)
             {
-                var trimmed = Misc.GetSubsetBytes(data, offset, length);
+                var trimmed = bubble.GetSubsetBytes(data, offset, length);
 
                 if (isReliable)
                 {
@@ -979,7 +979,7 @@ namespace GooglePlayGames.Native
 
             internal BeforeRoomCreateStartedState(RoomSession session)
             {
-                mContainingSession = Misc.CheckNotNull(session);
+                mContainingSession = bubble.CheckNotNull(session);
             }
 
             internal override void LeaveRoom()
@@ -1005,7 +1005,7 @@ namespace GooglePlayGames.Native
 
             internal RoomCreationPendingState(RoomSession session)
             {
-                mContainingSession = Misc.CheckNotNull(session);
+                mContainingSession = bubble.CheckNotNull(session);
             }
 
             internal override void HandleRoomResponse(RealtimeManager.RealTimeRoomResponse response)
@@ -1323,7 +1323,7 @@ namespace GooglePlayGames.Native
 
             internal ShutdownState(RoomSession session)
             {
-                mSession = Misc.CheckNotNull(session);
+                mSession = bubble.CheckNotNull(session);
             }
 
             internal override bool IsActive()
@@ -1350,9 +1350,9 @@ namespace GooglePlayGames.Native
             internal LeavingRoom(RoomSession session, NativeRealTimeRoom room,
                              Action leavingCompleteCallback)
             {
-                mSession = Misc.CheckNotNull(session);
-                mRoomToLeave = Misc.CheckNotNull(room);
-                mLeavingCompleteCallback = Misc.CheckNotNull(leavingCompleteCallback);
+                mSession = bubble.CheckNotNull(session);
+                mRoomToLeave = bubble.CheckNotNull(room);
+                mLeavingCompleteCallback = bubble.CheckNotNull(leavingCompleteCallback);
             }
 
             internal override bool IsActive()
@@ -1383,7 +1383,7 @@ namespace GooglePlayGames.Native
 
             internal AbortingRoomCreationState(RoomSession session)
             {
-                mSession = Misc.CheckNotNull(session);
+                mSession = bubble.CheckNotNull(session);
             }
 
             internal override bool IsActive()

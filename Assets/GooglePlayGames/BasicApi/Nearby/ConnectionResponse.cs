@@ -41,9 +41,9 @@ namespace GooglePlayGames.BasicApi.Nearby
                                    byte[] payload)
         {
             this.mLocalClientId = localClientId;
-            this.mRemoteEndpointId = Misc.CheckNotNull(remoteEndpointId);
+            this.mRemoteEndpointId = bubble.CheckNotNull(remoteEndpointId);
             this.mResponseStatus = code;
-            this.mPayload = Misc.CheckNotNull(payload);
+            this.mPayload = bubble.CheckNotNull(payload);
         }
 
         public long LocalClientId

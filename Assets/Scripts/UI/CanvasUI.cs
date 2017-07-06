@@ -11,7 +11,8 @@ public class CanvasUI : MonoBehaviour {
         chickenCurrent,
         chickenHigh,
         penguinCurrent,
-        penguinHigh;
+        penguinHigh,
+        comboText;
     GameObject countdownOverlay,
         creditText,
         sliderCol1,
@@ -60,6 +61,18 @@ public class CanvasUI : MonoBehaviour {
 
         else
             optionSlider.anchoredPosition = Vector2.Lerp(optionSlider.anchoredPosition, closePosition, 0.5f);
+
+        if (GameManager.instance.coinToAdd > 0)
+        {
+            comboText.text = "Chicky + " + GameManager.instance.coinToAdd;
+            StartCoroutine(FadeTextToFullAlpha(2f, comboText));
+        }
+
+        else
+        {
+            comboText.text = "";
+            StartCoroutine(FadeTextToZeroAlpha(1f, comboText));
+        }
     }
 
     void UpdateTimer()
@@ -77,6 +90,7 @@ public class CanvasUI : MonoBehaviour {
 
     void ShowEndGameStats()
     {
+        SoundManager.Instance.UiPlayOneShot(SoundManager.Instance.timeOut);
         endGameStats.SetActive(true);
         chickenCurrent.text = ScoreManager.instance.highScore.currentChicken.ToString();
         chickenHigh.text = ScoreManager.instance.highScore.highestChicken.ToString();
@@ -97,12 +111,14 @@ public class CanvasUI : MonoBehaviour {
 
     public void PressRetry()
     {
+        SoundManager.Instance.UiPlayOneShot(SoundManager.Instance.buttonClick);
         Time.timeScale = 1;
         GameManager.instance.Restart();
     }
 
     public void SwitchGameMode()
     {
+        SoundManager.Instance.UiPlayOneShot(SoundManager.Instance.buttonClick);
         GameManager.instance.SwitchGameMode();
     }
 
@@ -136,10 +152,12 @@ public class CanvasUI : MonoBehaviour {
         chickenHigh = GameObject.Find("chickyHigh").GetComponent<Text>();
         penguinCurrent = GameObject.Find("pengiCurrent").GetComponent<Text>();
         penguinHigh = GameObject.Find("pengiHigh").GetComponent<Text>();
+        comboText = GameObject.Find("comboText").GetComponent<Text>();
     }
 
     public void PressCredit()
     {
+        SoundManager.Instance.UiPlayOneShot(SoundManager.Instance.buttonClick);
         if (creditOpen)
             creditOpen = false;
         else
@@ -149,18 +167,21 @@ public class CanvasUI : MonoBehaviour {
 
     public void PressBackCredit()
     {
+        SoundManager.Instance.UiPlayOneShot(SoundManager.Instance.buttonClick);
         creditOpen = false;
         creditText.SetActive(creditOpen);
     }
 
     public void PressShop()
     {
+        SoundManager.Instance.UiPlayOneShot(SoundManager.Instance.buttonClick);
         Time.timeScale = 1;
         GameManager.instance.GoToScene("shop");
     }
 
     public void PressPause()
     {
+        SoundManager.Instance.UiPlayOneShot(SoundManager.Instance.buttonClick);
         if (!isPaused)
         {
             isPaused = true;
@@ -173,6 +194,26 @@ public class CanvasUI : MonoBehaviour {
             isPaused = false;
             Time.timeScale = 1;
             GameManager.instance.OnUnpause();
+        }
+    }
+
+    IEnumerator FadeTextToFullAlpha(float t, Text i)
+    {
+        i.color = new Color(i.color.r, i.color.g, i.color.b, 0);
+        while (i.color.a < 1.0f)
+        {
+            i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a + (Time.deltaTime / t));
+            yield return null;
+        }
+    }
+
+    IEnumerator FadeTextToZeroAlpha(float t, Text i)
+    {
+        i.color = new Color(i.color.r, i.color.g, i.color.b, 1);
+        while (i.color.a > 0.0f)
+        {
+            i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a - (Time.deltaTime / t));
+            yield return null;
         }
     }
 }

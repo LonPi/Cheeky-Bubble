@@ -33,7 +33,7 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal void SetClientId(string clientId)
         {
-            Misc.CheckNotNull(clientId);
+            bubble.CheckNotNull(clientId);
 
             C.IosPlatformConfiguration_SetClientID(SelfPtr(), clientId);
         }

@@ -37,7 +37,7 @@ namespace GooglePlayGames.BasicApi.Nearby
         public NearbyConnectionConfiguration(Action<InitializationStatus> callback,
                                              long localClientId)
         {
-            this.mInitializationCallback = Misc.CheckNotNull(callback);
+            this.mInitializationCallback = bubble.CheckNotNull(callback);
             this.mLocalClientId = localClientId;
         }
 

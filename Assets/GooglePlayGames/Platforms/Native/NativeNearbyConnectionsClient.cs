@@ -36,7 +36,7 @@ namespace GooglePlayGames.Native
 
         internal NativeNearbyConnectionsClient(NearbyConnectionsManager manager)
         {
-            this.mManager = Misc.CheckNotNull(manager);
+            this.mManager = bubble.CheckNotNull(manager);
         }
 
         public int MaxUnreliableMessagePayloadLength()
@@ -116,9 +116,9 @@ namespace GooglePlayGames.Native
                                      TimeSpan? advertisingDuration, Action<AdvertisingResult> resultCallback,
                                      Action<ConnectionRequest> requestCallback)
         {
-            Misc.CheckNotNull(appIdentifiers, "appIdentifiers");
-            Misc.CheckNotNull(resultCallback, "resultCallback");
-            Misc.CheckNotNull(requestCallback, "connectionRequestCallback");
+            bubble.CheckNotNull(appIdentifiers, "appIdentifiers");
+            bubble.CheckNotNull(resultCallback, "resultCallback");
+            bubble.CheckNotNull(requestCallback, "connectionRequestCallback");
 
             if (advertisingDuration.HasValue && advertisingDuration.Value.Ticks < 0)
             {
@@ -152,10 +152,10 @@ namespace GooglePlayGames.Native
         public void SendConnectionRequest(string name, string remoteEndpointId, byte[] payload,
                                           Action<ConnectionResponse> responseCallback, IMessageListener listener)
         {
-            Misc.CheckNotNull(remoteEndpointId, "remoteEndpointId");
-            Misc.CheckNotNull(payload, "payload");
-            Misc.CheckNotNull(responseCallback, "responseCallback");
-            Misc.CheckNotNull(listener, "listener");
+            bubble.CheckNotNull(remoteEndpointId, "remoteEndpointId");
+            bubble.CheckNotNull(payload, "payload");
+            bubble.CheckNotNull(responseCallback, "responseCallback");
+            bubble.CheckNotNull(listener, "listener");
 
             responseCallback = Callbacks.AsOnGameThreadCallback(responseCallback);
 
@@ -187,9 +187,9 @@ namespace GooglePlayGames.Native
         public void AcceptConnectionRequest(string remoteEndpointId, byte[] payload,
                                             IMessageListener listener)
         {
-            Misc.CheckNotNull(remoteEndpointId, "remoteEndpointId");
-            Misc.CheckNotNull(payload, "payload");
-            Misc.CheckNotNull(listener, "listener");
+            bubble.CheckNotNull(remoteEndpointId, "remoteEndpointId");
+            bubble.CheckNotNull(payload, "payload");
+            bubble.CheckNotNull(listener, "listener");
 
             Logger.d("Calling AcceptConncectionRequest");
             mManager.AcceptConnectionRequest(remoteEndpointId, payload, ToMessageListener(listener));
@@ -199,8 +199,8 @@ namespace GooglePlayGames.Native
         public void StartDiscovery(string serviceId, TimeSpan? advertisingTimeout,
                                    IDiscoveryListener listener)
         {
-            Misc.CheckNotNull(serviceId, "serviceId");
-            Misc.CheckNotNull(listener, "listener");
+            bubble.CheckNotNull(serviceId, "serviceId");
+            bubble.CheckNotNull(listener, "listener");
 
             using (var nativeListener = ToDiscoveryListener(listener))
             {
@@ -225,13 +225,13 @@ namespace GooglePlayGames.Native
 
         public void StopDiscovery(string serviceId)
         {
-            Misc.CheckNotNull(serviceId, "serviceId");
+            bubble.CheckNotNull(serviceId, "serviceId");
             mManager.StopDiscovery(serviceId);
         }
 
         public void RejectConnectionRequest(string requestingEndpointId)
         {
-            Misc.CheckNotNull(requestingEndpointId, "requestingEndpointId");
+            bubble.CheckNotNull(requestingEndpointId, "requestingEndpointId");
             mManager.RejectConnectionRequest(requestingEndpointId);
         }
 
@@ -273,7 +273,7 @@ namespace GooglePlayGames.Native
 
             public OnGameThreadMessageListener(IMessageListener listener)
             {
-                this.mListener = Misc.CheckNotNull(listener);
+                this.mListener = bubble.CheckNotNull(listener);
             }
 
             public void OnMessageReceived(string remoteEndpointId, byte[] data,
@@ -296,7 +296,7 @@ namespace GooglePlayGames.Native
 
             public OnGameThreadDiscoveryListener(IDiscoveryListener listener)
             {
-                this.mListener = Misc.CheckNotNull(listener);
+                this.mListener = bubble.CheckNotNull(listener);
             }
 
             public void OnEndpointFound(EndpointDetails discoveredEndpoint)

@@ -43,15 +43,15 @@ namespace GooglePlayGames.Native
 
         internal NativeSavedGameClient(SnapshotManager manager)
         {
-            this.mSnapshotManager = Misc.CheckNotNull(manager);
+            this.mSnapshotManager = bubble.CheckNotNull(manager);
         }
 
         public void OpenWithAutomaticConflictResolution(string filename, DataSource source,
                                                     ConflictResolutionStrategy resolutionStrategy,
                                                     Action<SavedGameRequestStatus, ISavedGameMetadata> callback)
         {
-            Misc.CheckNotNull(filename);
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(filename);
+            bubble.CheckNotNull(callback);
 
             callback = ToOnGameThread(callback);
 
@@ -112,12 +112,12 @@ namespace GooglePlayGames.Native
                                         NativeSnapshotMetadata original, NativeSnapshotMetadata unmerged,
                                         Action<SavedGameRequestStatus, ISavedGameMetadata> completeCallback, Action retryOpen)
             {
-                this.mManager = Misc.CheckNotNull(manager);
-                this.mConflictId = Misc.CheckNotNull(conflictId);
-                this.mOriginal = Misc.CheckNotNull(original);
-                this.mUnmerged = Misc.CheckNotNull(unmerged);
-                this.mCompleteCallback = Misc.CheckNotNull(completeCallback);
-                this.mRetryFileOpen = Misc.CheckNotNull(retryOpen);
+                this.mManager = bubble.CheckNotNull(manager);
+                this.mConflictId = bubble.CheckNotNull(conflictId);
+                this.mOriginal = bubble.CheckNotNull(original);
+                this.mUnmerged = bubble.CheckNotNull(unmerged);
+                this.mCompleteCallback = bubble.CheckNotNull(completeCallback);
+                this.mRetryFileOpen = bubble.CheckNotNull(retryOpen);
             }
 
             public void ChooseMetadata(ISavedGameMetadata chosenMetadata)
@@ -164,9 +164,9 @@ namespace GooglePlayGames.Native
                                                  bool prefetchDataOnConflict, ConflictCallback conflictCallback,
                                                  Action<SavedGameRequestStatus, ISavedGameMetadata> completedCallback)
         {
-            Misc.CheckNotNull(filename);
-            Misc.CheckNotNull(conflictCallback);
-            Misc.CheckNotNull(completedCallback);
+            bubble.CheckNotNull(filename);
+            bubble.CheckNotNull(conflictCallback);
+            bubble.CheckNotNull(completedCallback);
 
             conflictCallback = ToOnGameThread(conflictCallback);
             completedCallback = ToOnGameThread(completedCallback);
@@ -253,8 +253,8 @@ namespace GooglePlayGames.Native
         public void ReadBinaryData(ISavedGameMetadata metadata,
                                Action<SavedGameRequestStatus, byte[]> completedCallback)
         {
-            Misc.CheckNotNull(metadata);
-            Misc.CheckNotNull(completedCallback);
+            bubble.CheckNotNull(metadata);
+            bubble.CheckNotNull(completedCallback);
             completedCallback = ToOnGameThread(completedCallback);
 
             NativeSnapshotMetadata convertedMetadata = metadata as NativeSnapshotMetadata;
@@ -292,8 +292,8 @@ namespace GooglePlayGames.Native
                                       bool showCreateSaveUI, bool showDeleteSaveUI,
                                       Action<SelectUIStatus, ISavedGameMetadata> callback)
         {
-            Misc.CheckNotNull(uiTitle);
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(uiTitle);
+            bubble.CheckNotNull(callback);
 
             callback = ToOnGameThread(callback);
 
@@ -314,9 +314,9 @@ namespace GooglePlayGames.Native
         public void CommitUpdate(ISavedGameMetadata metadata, SavedGameMetadataUpdate updateForMetadata,
                              byte[] updatedBinaryData, Action<SavedGameRequestStatus, ISavedGameMetadata> callback)
         {
-            Misc.CheckNotNull(metadata);
-            Misc.CheckNotNull(updatedBinaryData);
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(metadata);
+            bubble.CheckNotNull(updatedBinaryData);
+            bubble.CheckNotNull(callback);
 
             callback = ToOnGameThread(callback);
 
@@ -356,7 +356,7 @@ namespace GooglePlayGames.Native
         public void FetchAllSavedGames(DataSource source,
                                    Action<SavedGameRequestStatus, List<ISavedGameMetadata>> callback)
         {
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(callback);
 
             callback = ToOnGameThread(callback);
 
@@ -378,7 +378,7 @@ namespace GooglePlayGames.Native
 
         public void Delete(ISavedGameMetadata metadata)
         {
-            Misc.CheckNotNull(metadata);
+            bubble.CheckNotNull(metadata);
 
             mSnapshotManager.Delete((NativeSnapshotMetadata)metadata);
         }
@@ -402,8 +402,8 @@ namespace GooglePlayGames.Native
             internal Prefetcher(Action<byte[], byte[]> dataFetchedCallback,
                             Action<SavedGameRequestStatus, ISavedGameMetadata> completedCallback)
             {
-                this.mDataFetchedCallback = Misc.CheckNotNull(dataFetchedCallback);
-                this.completedCallback = Misc.CheckNotNull(completedCallback);
+                this.mDataFetchedCallback = bubble.CheckNotNull(dataFetchedCallback);
+                this.completedCallback = bubble.CheckNotNull(completedCallback);
             }
 
             internal void OnOriginalDataRead(SnapshotManager.ReadResponse readResponse)

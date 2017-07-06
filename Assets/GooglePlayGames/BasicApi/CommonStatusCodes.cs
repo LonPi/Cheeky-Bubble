@@ -45,7 +45,7 @@ namespace GooglePlayGames.BasicApi
         InternalError = 8,
         /// <summary>The version of the Google Play services installed on this device is not authentic.</summary>
         ServiceInvalid = 9,
-        /// <summary>The application is misconfigured.</summary>
+        /// <summary>The application is bubbleonfigured.</summary>
         DeveloperError = 10,
         /// <summary>The application is not licensed to the user.</summary>
         LicenseCheckFailed = 11,

@@ -150,12 +150,12 @@ public class GameManager : MonoBehaviour
         EnableUserInput();
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }

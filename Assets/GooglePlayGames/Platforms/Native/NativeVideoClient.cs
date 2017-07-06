@@ -35,12 +35,12 @@ namespace GooglePlayGames.Native
 
         internal NativeVideoClient(VideoManager manager)
         {
-            this.mManager = Misc.CheckNotNull(manager);
+            this.mManager = bubble.CheckNotNull(manager);
         }
 
         public void GetCaptureCapabilities(Action<ResponseStatus, VideoCapabilities> callback)
         {
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(callback);
             callback = CallbackUtils.ToOnGameThread(callback);
             mManager.GetCaptureCapabilities(
                 response => {
@@ -81,7 +81,7 @@ namespace GooglePlayGames.Native
 
         public void GetCaptureState(Action<ResponseStatus, VideoCaptureState> callback)
         {
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(callback);
             callback = CallbackUtils.ToOnGameThread(callback);
             mManager.GetCaptureState(
                 response => {
@@ -109,7 +109,7 @@ namespace GooglePlayGames.Native
 
         public void IsCaptureAvailable(VideoCaptureMode captureMode, Action<ResponseStatus, bool> callback)
         {
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(callback);
             callback = CallbackUtils.ToOnGameThread(callback);
             mManager.IsCaptureAvailable(ConversionUtils.ConvertVideoCaptureMode(captureMode),
                 response => {
@@ -133,7 +133,7 @@ namespace GooglePlayGames.Native
 
         public void RegisterCaptureOverlayStateChangedListener(CaptureOverlayStateListener listener)
         {
-            Misc.CheckNotNull(listener);
+            bubble.CheckNotNull(listener);
             CaptureOverlayStateListenerHelper helper = CaptureOverlayStateListenerHelper.Create()
                 .SetOnCaptureOverlayStateChangedCallback(
                     response => {

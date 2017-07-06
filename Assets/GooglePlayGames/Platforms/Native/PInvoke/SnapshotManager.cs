@@ -33,7 +33,7 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal SnapshotManager(GameServices services)
         {
-            mServices = Misc.CheckNotNull(services);
+            mServices = bubble.CheckNotNull(services);
         }
 
         internal void FetchAll(Types.DataSource source,
@@ -81,8 +81,8 @@ namespace GooglePlayGames.Native.PInvoke
         internal void Open(string fileName, Types.DataSource source,
                            Types.SnapshotConflictPolicy conflictPolicy, Action<OpenResponse> callback)
         {
-            Misc.CheckNotNull(fileName);
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(fileName);
+            bubble.CheckNotNull(callback);
             C.SnapshotManager_Open(mServices.AsHandle(),
                 source,
                 fileName,
@@ -101,8 +101,8 @@ namespace GooglePlayGames.Native.PInvoke
         internal void Commit(NativeSnapshotMetadata metadata, NativeSnapshotMetadataChange metadataChange,
                              byte[] updatedData, Action<CommitResponse> callback)
         {
-            Misc.CheckNotNull(metadata);
-            Misc.CheckNotNull(metadataChange);
+            bubble.CheckNotNull(metadata);
+            bubble.CheckNotNull(metadataChange);
             C.SnapshotManager_Commit(
                 mServices.AsHandle(),
                 metadata.AsPointer(),
@@ -117,9 +117,9 @@ namespace GooglePlayGames.Native.PInvoke
                               NativeSnapshotMetadataChange metadataChange,
                               string conflictId, Action<CommitResponse> callback)
         {
-            Misc.CheckNotNull(metadata);
-            Misc.CheckNotNull(metadataChange);
-            Misc.CheckNotNull(conflictId);
+            bubble.CheckNotNull(metadata);
+            bubble.CheckNotNull(metadataChange);
+            bubble.CheckNotNull(conflictId);
 
             C.SnapshotManager_ResolveConflict(
                 mServices.AsHandle(),
@@ -139,7 +139,7 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal void Delete(NativeSnapshotMetadata metadata)
         {
-            Misc.CheckNotNull(metadata);
+            bubble.CheckNotNull(metadata);
 
             C.SnapshotManager_Delete(
                 mServices.AsHandle(),
@@ -148,8 +148,8 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal void Read(NativeSnapshotMetadata metadata, Action<ReadResponse> callback)
         {
-            Misc.CheckNotNull(metadata);
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(metadata);
+            bubble.CheckNotNull(callback);
 
             C.SnapshotManager_Read(
                 mServices.AsHandle(),

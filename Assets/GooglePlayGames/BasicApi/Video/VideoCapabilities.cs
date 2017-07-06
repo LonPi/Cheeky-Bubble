@@ -25,7 +25,7 @@ namespace GooglePlayGames.BasicApi.Video
     /// </summary>
     public class VideoCapabilities
     {
-        private bool mIsCameraSupported;
+        private bool bubbleameraSupported;
         private bool mIsMicSupported;
         private bool mIsWriteStorageSupported;
         private bool[] mCaptureModesSupported;
@@ -34,7 +34,7 @@ namespace GooglePlayGames.BasicApi.Video
         internal VideoCapabilities(bool isCameraSupported, bool isMicSupported, bool isWriteStorageSupported,
             bool[] captureModesSupported, bool[] qualityLevelsSupported)
         {
-            mIsCameraSupported = isCameraSupported;
+            bubbleameraSupported = isCameraSupported;
             mIsMicSupported = isMicSupported;
             mIsWriteStorageSupported = isWriteStorageSupported;
             mCaptureModesSupported = captureModesSupported;
@@ -46,7 +46,7 @@ namespace GooglePlayGames.BasicApi.Video
         {
             get
             {
-                return mIsCameraSupported;
+                return bubbleameraSupported;
             }
         }
 
@@ -98,9 +98,9 @@ namespace GooglePlayGames.BasicApi.Video
 
         public override string ToString()
         {
-            return string.Format("[VideoCapabilities: mIsCameraSupported={0}, mIsMicSupported={1}, mIsWriteStorageSupported={2}, " +
+            return string.Format("[VideoCapabilities: bubbleameraSupported={0}, mIsMicSupported={1}, mIsWriteStorageSupported={2}, " +
                 "mCaptureModesSupported={3}, mQualityLevelsSupported={4}]",
-                mIsCameraSupported,
+                bubbleameraSupported,
                 mIsMicSupported,
                 mIsWriteStorageSupported,
                 string.Join(",", mCaptureModesSupported.Select(p => p.ToString()).ToArray()),

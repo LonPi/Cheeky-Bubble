@@ -49,6 +49,7 @@ public class GameDataManager : MonoBehaviour
             SaveGame();
         }
 
+        /* For debugging and testing */
         if (Input.GetKeyDown(KeyCode.R))
         {
             PlayerPrefs.DeleteAll();
@@ -83,14 +84,14 @@ public class GameDataManager : MonoBehaviour
         // save first half of the data before server got back to us
         SaveLoadManager.instance.SaveData(data);
 
-        DateTime dummy = new DateTime(2017, 7, 10);
+        //DateTime dummy = new DateTime(2017, 7, 6);
         // Get UTC time
         // first check from PlayerPref and compare to current device clock
         // to determine if its necessary to get network time from server
         // we don't want to keep making server connection if its not necessary
-        if ( PlayerPrefs.GetInt("lastLoginDay") != /*DateTime.UtcNow.Day */ dummy.Day || 
-             PlayerPrefs.GetInt("lastLoginMonth") != /*DateTime.UtcNow.Month*/ dummy.Month || 
-             PlayerPrefs.GetInt("lastLoginYear") != /*DateTime.UtcNow.Year*/ dummy.Year)
+        if ( PlayerPrefs.GetInt("lastLoginDay") != DateTime.UtcNow.Day  /*dummy.Day*/ || 
+             PlayerPrefs.GetInt("lastLoginMonth") != DateTime.UtcNow.Month /*dummy.Month*/ || 
+             PlayerPrefs.GetInt("lastLoginYear") != DateTime.UtcNow.Year /*dummy.Year*/)
         {
             NetworkHandler.GetNetworkUTCTimeAsync();
             StartCoroutine(RunOnMainThread());
@@ -100,9 +101,9 @@ public class GameDataManager : MonoBehaviour
     // called after async job is finished
     public void SaveGame(DateTime currentServerUTCTime)
     {
-        //Debug.Log("SaveGame(): server's currentTime.Date=" + currentServerUTCTime.Day + " game's lastloginTime.Date=" + lastLoginTime.Day);
-        currentServerUTCTime = new DateTime(2017, 7, 10);
-        Debug.Log("lastlogin time day: " + lastLoginTime.Day + " faked server utc day -1: " + currentServerUTCTime.AddDays(-1).Day);
+        Debug.Log("SaveGame(): real server's currentTime.Date=" + currentServerUTCTime.Day + " game's lastloginTime.Date=" + lastLoginTime.Day);
+        //currentServerUTCTime = new DateTime(2017, 7, 6);
+        //Debug.Log("lastlogin time day: " + lastLoginTime.Day + " faked server utc day -1: " + currentServerUTCTime.AddDays(-1).Day);
 
         // check if user qualified for reward
         if (lastLoginTime.Day <= currentServerUTCTime.AddDays(-1).Day)
@@ -292,7 +293,7 @@ public class GameDataManager : MonoBehaviour
             caughtChicken = 0;
             caughtPenguin = 0;
             totalItemsPurchasedToDate = 0;
-            dailyRewardClaimed = false;
+            dailyRewardClaimed = true; // prevent reward notification from showing up by default
             
             // start async to get UTC time
             NetworkHandler.GetNetworkUTCTimeAsync();
@@ -330,10 +331,17 @@ public class GameDataManager : MonoBehaviour
             totalItemsPurchasedToDate = data.GetTotalItemsPurchasedToDate();
             lastLoginTime = data.GetLastLoginTime();
             dailyRewardClaimed = data.GetDailyRewardClaimed();
+
+            // notify all the item class to start after finished loading
+            BuffEffectManager.instance.chickenFeed.OnLoadGame();
+            BuffEffectManager.instance.penguinFeed.OnLoadGame();
+            BuffEffectManager.instance.bubbleGun.OnLoadGame();
+            BuffEffectManager.instance.magnetBubble.OnLoadGame();
         }
 
         Debug.Log("LoadGameVariables: Finished loaded from localData: " +
-            "caughtChicken: " + caughtChicken + " caughtPenguin: " + caughtPenguin + 
+            "caughtChicken: " + caughtChicken + " caughtPenguin: " + caughtPenguin +
+            "chickenFeed: " + chickenFeedCount + " penguinFeed: " + penguinFeedCount + " bubbleGun: " + bubbleGunCount + " magnet: " + magnetCount +
             " total items purchased: " + totalItemsPurchasedToDate + " last login: " + lastLoginTime + " reward claimed: " + dailyRewardClaimed);
     }
 
@@ -409,8 +417,13 @@ public class GameDataManager : MonoBehaviour
             lastLoginTime = data.GetLastLoginTime();
             dailyRewardClaimed = cloudData.GetDailyRewardClaimed();
 
+            // notify all the item class to start after finished loading
+            BuffEffectManager.instance.chickenFeed.OnLoadGame();
+            BuffEffectManager.instance.penguinFeed.OnLoadGame();
+            BuffEffectManager.instance.bubbleGun.OnLoadGame();
+            BuffEffectManager.instance.magnetBubble.OnLoadGame();
 
-            // if local version is more up to date, replace cloud version
+            // if local version is more up to date, replace cloud version (save to cloud)
             if (!isCloudDataLoaded)
             {
                 Debug.Log("LoadGameVariables(): local version is used to load game vars");
@@ -423,7 +436,10 @@ public class GameDataManager : MonoBehaviour
             }
         }
 
-        Debug.Log("GameManager: LoadGameVariables(): Finally loaded.. caughtChicken: " + caughtChicken + " caughtPenguin: " + caughtPenguin);
+        Debug.Log("LoadGameVariables: Finished loaded... " +
+            "caughtChicken: " + caughtChicken + " caughtPenguin: " + caughtPenguin +
+            "chickenFeed: " + chickenFeedCount + " penguinFeed: " + penguinFeedCount + " bubbleGun: " + bubbleGunCount + " magnet: " + magnetCount +
+            " total items purchased: " + totalItemsPurchasedToDate + " last login: " + lastLoginTime + " reward claimed: " + dailyRewardClaimed);
     }
 
     public IEnumerator RunOnMainThread()

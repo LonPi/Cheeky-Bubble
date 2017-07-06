@@ -31,12 +31,12 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal StatsManager(GameServices services)
         {
-            mServices = Misc.CheckNotNull(services);
+            mServices = bubble.CheckNotNull(services);
         }
 
         internal void FetchForPlayer(Action<FetchForPlayerResponse> callback)
         {
-            Misc.CheckNotNull(callback);
+            bubble.CheckNotNull(callback);
 
             C.StatsManager_FetchForPlayer(mServices.AsHandle(), Types.DataSource.CACHE_OR_NETWORK,
                 InternalFetchForPlayerCallback,

@@ -1,4 +1,4 @@
-// <copyright file="Misc.cs" company="Google Inc.">
+// <copyright file="bubble.cs" company="Google Inc.">
 // Copyright (C) 2014 Google Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,7 @@ namespace GooglePlayGames.OurUtils
 {
     using System;
 
-    public static class Misc
+    public static class bubble
     {
         public static bool BuffersAreIdentical(byte[] a, byte[] b)
         {

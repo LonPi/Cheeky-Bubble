@@ -24,6 +24,15 @@ public class MagnetBubble : MonoBehaviour {
     bool UpdateTimer()
     {
         timer -= Time.deltaTime;
+        timeElapsed += Time.deltaTime;
+
+        // update count
+        if (timeElapsed >= duration)
+        {
+            GameDataManager.instance.DecrementMagnetCount();
+            timeElapsed = 0;
+        }
+
         if (timer <= 0)
         {
             // release the list
@@ -50,6 +59,7 @@ public class MagnetBubble : MonoBehaviour {
             EquipMagnetBubble();
         }
     }
+
     public void OnPurchase()
     {
         GameDataManager.instance.IncrementMagnetCount();
@@ -77,6 +87,16 @@ public class MagnetBubble : MonoBehaviour {
         purchased = false;
         timerStart = false;
         timer = 0;
+    }
+
+    public void OnLoadGame()
+    {
+        // if there exists magnet in inventory, start count down when we start the game
+        if (GameDataManager.instance.GetMagnetCount() > 0)
+        {
+            timerStart = true;
+            timer = GameDataManager.instance.GetMagnetCount() * duration;
+        }
     }
 
     public void SetAndAddToList(GameObject bubble)

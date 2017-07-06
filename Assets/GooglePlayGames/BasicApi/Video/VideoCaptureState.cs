@@ -25,7 +25,7 @@ namespace GooglePlayGames.BasicApi.Video
     /// </summary>
     public class VideoCaptureState
     {
-        private bool mIsCapturing;
+        private bool bubbleapturing;
         private VideoCaptureMode mCaptureMode;
         private VideoQualityLevel mQualityLevel;
         private bool mIsOverlayVisible;
@@ -34,7 +34,7 @@ namespace GooglePlayGames.BasicApi.Video
         internal VideoCaptureState(bool isCapturing, VideoCaptureMode captureMode,
             VideoQualityLevel qualityLevel, bool isOverlayVisible, bool isPaused)
         {
-            mIsCapturing = isCapturing;
+            bubbleapturing = isCapturing;
             mCaptureMode = captureMode;
             mQualityLevel = qualityLevel;
             mIsOverlayVisible = isOverlayVisible;
@@ -46,7 +46,7 @@ namespace GooglePlayGames.BasicApi.Video
         {
             get
             {
-                return mIsCapturing;
+                return bubbleapturing;
             }
         }
 
@@ -98,9 +98,9 @@ namespace GooglePlayGames.BasicApi.Video
 
         public override string ToString()
         {
-            return string.Format("[VideoCaptureState: mIsCapturing={0}, mCaptureMode={1}, mQualityLevel={2}, " +
+            return string.Format("[VideoCaptureState: bubbleapturing={0}, mCaptureMode={1}, mQualityLevel={2}, " +
                 "mIsOverlayVisible={3}, mIsPaused={4}]",
-                mIsCapturing,
+                bubbleapturing,
                 mCaptureMode.ToString(),
                 mQualityLevel.ToString(),
                 mIsOverlayVisible,

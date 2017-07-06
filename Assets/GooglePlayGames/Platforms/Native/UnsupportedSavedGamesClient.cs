@@ -31,7 +31,7 @@ namespace GooglePlayGames.Native
 
         public UnsupportedSavedGamesClient(string message)
         {
-            this.mMessage = Misc.CheckNotNull(message);
+            this.mMessage = bubble.CheckNotNull(message);
         }
 
         public void OpenWithAutomaticConflictResolution(string filename, DataSource source,

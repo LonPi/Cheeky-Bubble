@@ -28,7 +28,7 @@ namespace GooglePlayGames.BasicApi.Nearby
         public AdvertisingResult(ResponseStatus status, string localEndpointName)
         {
             this.mStatus = status;
-            this.mLocalEndpointName = Misc.CheckNotNull(localEndpointName);
+            this.mLocalEndpointName = bubble.CheckNotNull(localEndpointName);
         }
 
         public bool Succeeded

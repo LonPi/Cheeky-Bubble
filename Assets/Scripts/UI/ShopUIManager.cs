@@ -129,6 +129,7 @@ public class ShopUIManager : MonoBehaviour {
 
     public void OnSelectBackButton()
     {
+        SoundManager.Instance.UiPlayOneShot(SoundManager.Instance.buttonClick);
         string previousSceneName = GameManager.instance.GetPreviousSceneName();
         Debug.Log("OnSelectBackBtn: " + previousSceneName);
         if (previousSceneName != "")
@@ -173,6 +174,7 @@ public class ShopUIManager : MonoBehaviour {
             GameDataManager.instance.SetChickenCount(remainedChickenCurrency);
             BuffEffectManager.instance.magnetBubble.OnPurchase();
         }
+        SoundManager.Instance.ShopPlayOneShot(SoundManager.Instance.shopBuy);
     }
 
     public void OnSelectPayPenguin()
@@ -206,10 +208,12 @@ public class ShopUIManager : MonoBehaviour {
             GameDataManager.instance.SetPenguinCount(remainedPenguinCurrency);
             BuffEffectManager.instance.magnetBubble.OnPurchase();
         }
+        SoundManager.Instance.ShopPlayOneShot(SoundManager.Instance.shopBuy);
     }
 
     public void OnSelectChickenFeed()
     {
+        SoundManager.Instance.UiPlayOneShot(SoundManager.Instance.buttonClick);
         PayChickenBtn.gameObject.SetActive(true);
         PayChickenText.text = ChickenFeed_ChickenCurrency.text;
         PayPenguinBtn.gameObject.SetActive(true);
@@ -221,6 +225,7 @@ public class ShopUIManager : MonoBehaviour {
 
     public void OnSelectPenguinFeed()
     {
+        SoundManager.Instance.UiPlayOneShot(SoundManager.Instance.buttonClick);
         PayChickenBtn.gameObject.SetActive(true);
         PayChickenText.text = PenguinFeed_ChickenCurrency.text;
         PayPenguinBtn.gameObject.SetActive(true);
@@ -233,6 +238,7 @@ public class ShopUIManager : MonoBehaviour {
 
     public void OnSelectBubbleGun()
     {
+        SoundManager.Instance.UiPlayOneShot(SoundManager.Instance.buttonClick);
         PayChickenBtn.gameObject.SetActive(true);
         PayChickenText.text = BubbleGun_ChickenCurrency.text;
         PayPenguinBtn.gameObject.SetActive(true);
@@ -244,6 +250,7 @@ public class ShopUIManager : MonoBehaviour {
 
     public void OnSelectMagnet()
     {
+        SoundManager.Instance.UiPlayOneShot(SoundManager.Instance.buttonClick);
         PayChickenBtn.gameObject.SetActive(true);
         PayChickenText.text = Magnet_ChickenCurrency.text;
         PayPenguinBtn.gameObject.SetActive(true);

@@ -178,6 +178,7 @@ public class Bubble : MonoBehaviour
         if (!containedBird)
         {
             yield return new WaitForSeconds(0.1f);
+            SoundManager.Instance.BubblePlayOneShot(SoundManager.Instance.bubblePopBlank);
             animator.SetTrigger("bubblePop");
             script.IncreaseVelocity();
             // prevent angry state trigger from accumulating
@@ -195,6 +196,7 @@ public class Bubble : MonoBehaviour
         else
         {
             yield return new WaitForSeconds(lifespanBeforePop);
+            SoundManager.Instance.BubblePlayOneShot(SoundManager.Instance.bubblePopCatch);
             animator.SetTrigger("bubblePop");
             script.SetBubbleCollider(null);
             script = null;

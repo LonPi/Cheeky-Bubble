@@ -100,7 +100,7 @@ namespace GooglePlayGames.BasicApi.SavedGame
 
             public Builder WithUpdatedDescription(string description)
             {
-                mNewDescription = Misc.CheckNotNull(description);
+                mNewDescription = bubble.CheckNotNull(description);
                 mDescriptionUpdated = true;
                 return this;
             }

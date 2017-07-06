@@ -74,6 +74,7 @@ public class Chicken : MonoBehaviour, FlyingObjectInterface {
                 isBeingAttractedIntoBubble = false;
                 isFreeFalling = true;
                 animator.SetTrigger("chickenFall");
+                SoundManager.Instance.BirdPlayOneShot(SoundManager.Instance.chickenCatch);
             }
         }
     }
@@ -120,6 +121,7 @@ public class Chicken : MonoBehaviour, FlyingObjectInterface {
         speed = speed + speedIncreaseAmt;
         rb2d.velocity = speed * direction;
         animator.SetTrigger("chickenRun");
+        SoundManager.Instance.BirdPlayOneShot(SoundManager.Instance.birdRunAway);
         velocityIncreased = true;
     }
 

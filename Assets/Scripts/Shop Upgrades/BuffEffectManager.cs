@@ -31,27 +31,6 @@ public class BuffEffectManager : MonoBehaviour {
 	
     void Update ()
     {
-        /* For debugging and testing */
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            bubbleGun.OnPurchase();
-        }
-
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            magnetBubble.OnPurchase();
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            chickenFeed.OnPurchase();
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            penguinFeed.OnPurchase();
-        }
-
         chickenFeedTimer = chickenFeed.RemainingTime();
         penguinFeedTimer = penguinFeed.RemainingTime();
         bubbleGunTimer = bubbleGun.RemainingTime();
@@ -62,13 +41,13 @@ public class BuffEffectManager : MonoBehaviour {
     {
         if (buffType == "chickenFeed")
             return chickenFeedTimer;
-        else if (buffType == "penguinFeed")
+        if (buffType == "penguinFeed")
             return penguinFeedTimer;
-        else if(buffType == "bubbleGun")
+        if (buffType == "bubbleGun")
             return bubbleGunTimer;
-        else if(buffType == "magnet")
+        if (buffType == "magnet")
             return magnetTimer;
-        else
-            return 0f;
+
+        return 0;
     }
 }

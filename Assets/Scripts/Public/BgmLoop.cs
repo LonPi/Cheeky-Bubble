@@ -28,7 +28,7 @@ public class BgmLoop : MonoBehaviour {
     {
         _audio.clip = bgmStart;
         _audio.Play();
-        yield return new WaitForSeconds(_audio.clip.length - 0.5f);
+        yield return new WaitForSeconds(_audio.clip.length - 0.6f);
         _audio.clip = bgmLoop;
         _audio.Play();
     }

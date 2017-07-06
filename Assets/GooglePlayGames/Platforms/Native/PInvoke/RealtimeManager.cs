@@ -37,7 +37,7 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal RealtimeManager(GameServices gameServices)
         {
-            this.mGameServices = Misc.CheckNotNull(gameServices);
+            this.mGameServices = bubble.CheckNotNull(gameServices);
         }
 
         internal void CreateRoom(RealtimeRoomConfig config, RealTimeEventListenerHelper helper,
@@ -91,7 +91,7 @@ namespace GooglePlayGames.Native.PInvoke
         internal void ShowWaitingRoomUI(NativeRealTimeRoom room, uint minimumParticipantsBeforeStarting,
                                     Action<WaitingRoomUIResponse> callback)
         {
-            Misc.CheckNotNull(room);
+            bubble.CheckNotNull(room);
             C.RealTimeMultiplayerManager_ShowWaitingRoomUI(mGameServices.AsHandle(),
                 room.AsPointer(),
                 minimumParticipantsBeforeStarting,

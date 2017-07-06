@@ -72,7 +72,7 @@ namespace GooglePlayGames
         /// <param name="client">Implementation client to use for this instance.</param>
         internal PlayGamesPlatform(IPlayGamesClient client)
         {
-            this.mClient = Misc.CheckNotNull(client);
+            this.mClient = bubble.CheckNotNull(client);
             this.mLocalUser = new PlayGamesLocalUser(this);
             this.mConfiguration = PlayGamesClientConfiguration.DefaultConfiguration;
         }

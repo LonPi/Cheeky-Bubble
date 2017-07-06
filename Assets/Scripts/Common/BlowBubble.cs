@@ -86,6 +86,7 @@ public class BlowBubble : MonoBehaviour
             {
                 PoolManager.instance.ReturnObjectToPool(instantiatedBubble);
                 Instantiate(burst, mouth.transform.position, Quaternion.identity);
+                SoundManager.Instance.BubblePlayOneShot(SoundManager.Instance.bubblePopBlank);
                 animator.SetTrigger("pop");
                 instantiatedBubble = null;
             }

@@ -35,6 +35,7 @@ public class BgmMute : MonoBehaviour {
     
     public void TaskOnClick()
     {
+        SoundManager.Instance.UiPlayOneShot(SoundManager.Instance.buttonClick);
         if (muted)
         {
             soundSource.volume = 1;
