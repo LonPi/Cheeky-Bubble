@@ -19,9 +19,9 @@ public class CoinFly : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        gameObject.transform.position = Vector2.Lerp(gameObject.transform.position, dest, 1.0f);
+        gameObject.transform.position = Vector2.Lerp(gameObject.transform.position, dest, 0.3f);
         gameObject.transform.localScale = Vector3.Lerp(gameObject.transform.localScale, finalScale, Time.deltaTime*2);
-        if ((Vector2)gameObject.transform.position == (Vector2)dest)
+        if (gameObject.transform.position.y > 4f)
         {
             if (gameObject.name == "Chicken_Drop")
                 GameDataManager.instance.IncrementChickenCount();

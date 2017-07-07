@@ -21,6 +21,14 @@ public class AsyncTasks {
                          "98.175.203.200",
                          "66.199.22.67",
                          "64.113.32.5",
+                         "198.111.152.100",
+                         "216.229.0.179",
+                         "132.163.4.101",
+                         "132.163.4.102",
+                         "132.163.4.103",
+                         "132.163.4.104",
+                         "128.138.141.172",
+                         "216.228.192.69",
                          "24.56.178.140",
                          "128.138.140.44"
                           };
@@ -32,10 +40,10 @@ public class AsyncTasks {
             {
                 // Open a StreamReader to a random time server
                 int randIdx = ran.Next(0, servers.Length);
-                Debug.Log("POLLING SERVER: " + servers[randIdx]);
+                Debug.Log("ASYNC TASK: POLLING SERVER: " + servers[randIdx]);
                 StreamReader reader = new StreamReader(new System.Net.Sockets.TcpClient(servers[randIdx], 13).GetStream());
                 serverResponse = reader.ReadToEnd();
-                Debug.Log("SERVER RESPONSE: " + serverResponse);
+                Debug.Log("ASYNC TASK: SERVER RESPONSE: " + serverResponse);
                 reader.Close();
                 // Check to see that the signiture is there
                 if (serverResponse.Length > 47 && serverResponse.Substring(38, 9).Equals("UTC(NIST)"))

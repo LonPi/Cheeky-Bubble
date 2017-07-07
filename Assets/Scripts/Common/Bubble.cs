@@ -7,17 +7,15 @@ public class Bubble : MonoBehaviour
 
     public bool isReleased { get; set; }
     public ParticleSystem burst;
-    public int multiplier;
 
     Rigidbody2D rb2d;
     CircleCollider2D myCollider;
-    FlyingObjectInterface script;
+    FlyingObjectInterface flyingObjectScript;
     float upwardVelocity;
     float lifespanBeforePop = 2f;
     float sizeReductionFactor = 0.99f;
     float buffRadius = 0; // buff stat
     float speedDecreaseAmt;
-    static int combo;
     bool containedBird;
     bool isBeingPopped;
     Animator animator;
@@ -28,7 +26,6 @@ public class Bubble : MonoBehaviour
         myCollider = GetComponent<CircleCollider2D>();
         animator = GetComponent<Animator>();
         rb2d.isKinematic = true;
-        combo = 0;
     }
 
     private void Update()
@@ -58,8 +55,7 @@ public class Bubble : MonoBehaviour
             {
                 // character is angry when bubble never catches a bird
                 // prevent fail state trigger from accumulating
-                combo = 0;
-                GameManager.instance.SetCoin(combo, multiplier);
+                GameManager.instance.SetCoin(0);
                 if (!BlowBubble.Instance.IsInFailState && !BlowBubble.Instance.IsInAngryState && !BlowBubble.Instance.IsInPopState)
                 {
                     BlowBubble.Instance.SetAnimatorTrigger("fail");
@@ -117,7 +113,7 @@ public class Bubble : MonoBehaviour
     void Decelerate()
     {
         // decelerate based on size of bird it carries
-        speedDecreaseAmt = script.GetGameObject().transform.localScale.x + 0.5f;
+        speedDecreaseAmt = flyingObjectScript.GetGameObject().transform.localScale.x + 0.5f;
         Vector2 speed = new Vector2(rb2d.velocity.x, rb2d.velocity.y - speedDecreaseAmt);
         rb2d.velocity = speed;
     }
@@ -131,18 +127,18 @@ public class Bubble : MonoBehaviour
         // radius of which flying object can be fit into this bubble
         // also radius of which flying object can be scared
         float radius = myCollider.radius * transform.localScale.x;
-        Collider2D attractedBird = Physics2D.OverlapCircle(bounds.center, attractorRadius, 1 << LayerMask.NameToLayer("Bird"));
+        Collider2D nearbyBird = Physics2D.OverlapCircle(bounds.center, attractorRadius, 1 << LayerMask.NameToLayer("Bird"));
 
-        if (attractedBird)
+        if (nearbyBird)
         {
-            script = attractedBird.gameObject.GetComponent<FlyingObjectInterface>();
+            flyingObjectScript = nearbyBird.gameObject.GetComponent<FlyingObjectInterface>();
 
-            if (script.IsAttractableToBubble())
+            if (flyingObjectScript.IsAttractableToBubble())
             {
                 // if bird's size fit into this bubble
-                if (attractedBird.bounds.size.x <= 2 * radius)
+                if (nearbyBird.bounds.size.x <= 2 * radius)
                 {
-                    script.FitIntoBubble(myCollider);
+                    flyingObjectScript.FitIntoBubble(myCollider);
                     containedBird = true;
                     StartCoroutine(PopBubble());
                 }
@@ -157,8 +153,10 @@ public class Bubble : MonoBehaviour
                         // will appear to be dangling because the bubble that it belongs to has just popped to a bigger bird.
                         if (scaredBird)
                         {
-                            script = scaredBird.gameObject.GetComponent<FlyingObjectInterface>();
-                            StartCoroutine(PopBubble());
+                            flyingObjectScript = scaredBird.gameObject.GetComponent<FlyingObjectInterface>();
+                            // only pop to birds that are attractable to bubble
+                            if (flyingObjectScript.IsAttractableToBubble())
+                                StartCoroutine(PopBubble());
 
                         }
                     }
@@ -180,7 +178,7 @@ public class Bubble : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             SoundManager.Instance.BubblePlayOneShot(SoundManager.Instance.bubblePopBlank);
             animator.SetTrigger("bubblePop");
-            script.IncreaseVelocity();
+            flyingObjectScript.IncreaseVelocity();
             // prevent angry state trigger from accumulating
             if (!BlowBubble.Instance.IsInFailState && !BlowBubble.Instance.IsInAngryState && !BlowBubble.Instance.IsInPopState)
             {
@@ -188,8 +186,7 @@ public class Bubble : MonoBehaviour
             }
             CancelInvoke("Shrink");
             Instantiate(burst, this.transform.position, Quaternion.identity);
-            combo++;
-            GameManager.instance.SetCoin(combo, multiplier);
+            GameManager.instance.SetCoin(0);
             PoolManager.instance.ReturnObjectToPool(gameObject);
         }
 
@@ -198,12 +195,11 @@ public class Bubble : MonoBehaviour
             yield return new WaitForSeconds(lifespanBeforePop);
             SoundManager.Instance.BubblePlayOneShot(SoundManager.Instance.bubblePopCatch);
             animator.SetTrigger("bubblePop");
-            script.SetBubbleCollider(null);
-            script = null;
+            flyingObjectScript.SetBubbleCollider(null);
+            flyingObjectScript = null;
             CancelInvoke("Shrink");
             Instantiate(burst, this.transform.position, Quaternion.identity);
-            combo++;
-            GameManager.instance.SetCoin(combo, multiplier);
+            GameManager.instance.SetCoin(1);
             PoolManager.instance.ReturnObjectToPool(gameObject);
         }
 
@@ -213,7 +209,7 @@ public class Bubble : MonoBehaviour
     {
         isBeingPopped = false;
         isReleased = false;
-        script = null;
+        flyingObjectScript = null;
         containedBird = false;
         transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
     }

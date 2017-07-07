@@ -46,13 +46,14 @@ public class BubbleGun : MonoBehaviour {
         purchased = true;
         timerStart = true;
         timer += duration;
+        GameDataManager.instance.SaveGame();
     }
 
     public void OnSceneLoaded()
     {
         if (purchased)
         {
-            BlowBubble.Instance.EquipBubbleGun(sizeIncreaseFactor);
+            EquipBubbleGun();
         }
     }
 
@@ -64,13 +65,24 @@ public class BubbleGun : MonoBehaviour {
         }
     }
 
-    public void OnLoadGame()
+    void EquipBubbleGun()
+    {
+        if (GameManager.instance.currentScene.name == "competitive" || GameManager.instance.currentScene.name == "casual")
+        {
+            BlowBubble.Instance.EquipBubbleGun(sizeIncreaseFactor);
+        }
+    }
+
+    public void OnFinishedLoading()
     {
         // if there exists bubble gun in inventory, start count down when we start the game
         if (GameDataManager.instance.GetBubbleGunCount() > 0)
         {
             timerStart = true;
-            timer = GameDataManager.instance.GetBubbleGunCount() * duration;
+            timer = GameDataManager.instance.GetLoadedBubbleGunTimer();
+            purchased = true;
+            // equip it
+            EquipBubbleGun();
         }
     }
 
@@ -80,6 +92,8 @@ public class BubbleGun : MonoBehaviour {
         UnequipBubbleGun();
         timerStart = false;
         timer = 0;
+        Debug.Log("Bubble Gun expired.. timer: " + timer + " bubble gun count: " + GameDataManager.instance.GetBubbleGunCount());
+        GameDataManager.instance.SaveGame();
     }
 
     public float RemainingTime()

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 58641873817865358}
   - component: {fileID: 114947447876768766}
   - component: {fileID: 95664386949495024}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Chicken_Drop
   m_TagString: Untagged
   m_Icon: {fileID: 0}

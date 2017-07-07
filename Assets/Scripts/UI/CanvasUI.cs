@@ -23,9 +23,10 @@ public class CanvasUI : MonoBehaviour {
     bool creditOpen = false;
     bool isPaused = false;
     float countdownTimer;
-    bool isInCompetitiveMode, 
-        start, 
-        endGame;
+    bool isInCompetitiveMode,
+        start,
+        endGame,
+        showEndGameStats;
 
     void Start ()
     {
@@ -52,8 +53,14 @@ public class CanvasUI : MonoBehaviour {
         if (isInCompetitiveMode && !start && endGame)
         {
             // show end game stats
-            ScoreManager.instance.OnGameOver();
-            ShowEndGameStats();
+            if (!showEndGameStats)
+            {
+                ScoreManager.instance.OnGameOver();
+                ShowEndGameStats();
+                showEndGameStats = true;
+                GameManager.instance.DisableUserInput();
+            }
+
         }
 
         if (isPaused)
@@ -77,11 +84,12 @@ public class CanvasUI : MonoBehaviour {
 
     void UpdateTimer()
     {
-        if (countdownTimer <= 0)
+        if (countdownTimer <= 0 && endGame == false)
         {
             countdownTimer = 0;
             endGame = true;
             start = false;
+            SoundManager.Instance.UiPlayOneShot(SoundManager.Instance.timeOut);
         }
         timer.text = Mathf.CeilToInt(countdownTimer).ToString();
         countdownTimer -= Time.deltaTime;
@@ -89,8 +97,7 @@ public class CanvasUI : MonoBehaviour {
     }
 
     void ShowEndGameStats()
-    {
-        SoundManager.Instance.UiPlayOneShot(SoundManager.Instance.timeOut);
+    { 
         endGameStats.SetActive(true);
         chickenCurrent.text = ScoreManager.instance.highScore.currentChicken.ToString();
         chickenHigh.text = ScoreManager.instance.highScore.highestChicken.ToString();
@@ -177,6 +184,11 @@ public class CanvasUI : MonoBehaviour {
         SoundManager.Instance.UiPlayOneShot(SoundManager.Instance.buttonClick);
         Time.timeScale = 1;
         GameManager.instance.GoToScene("shop");
+    }
+
+    public void PressShowLeaderboard()
+    {
+        PlayGamesScript.instance.ShowLeaderboardsUI();
     }
 
     public void PressPause()

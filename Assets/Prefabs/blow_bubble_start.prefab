@@ -84,7 +84,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.30106318, y: 0.49740982}
+  m_Offset: {x: -0.20802808, y: 0.17846048}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -95,7 +95,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.3611984, y: 2.2748194}
+  m_Size: {x: 6.3793807, y: 3.354339}
   m_EdgeRadius: 0
 --- !u!95 &95916181791359780
 Animator:
@@ -129,6 +129,7 @@ MonoBehaviour:
   BearAnimator: {fileID: 9100000, guid: e6c5f275b072c6b4c96ecf62c9c3c411, type: 2}
   BubblePrefab: {fileID: 1512726574066492, guid: 9990cf2a11084824999fb751950fa34f,
     type: 2}
+  burst: {fileID: 198583316152709688, guid: 346f70f717b3430458fe5b4fee0a7bd4, type: 2}
   mouth: {fileID: 4271383111028610}
   animatorChanged: 0
 --- !u!212 &212964293236121050

@@ -29,25 +29,23 @@ public class BuffEffectManager : MonoBehaviour {
         penguinFeed = GetComponent<PenguinFeed>();
     }
 	
-    void Update ()
+    public float GetChickenFeedTimer()
     {
-        chickenFeedTimer = chickenFeed.RemainingTime();
-        penguinFeedTimer = penguinFeed.RemainingTime();
-        bubbleGunTimer = bubbleGun.RemainingTime();
-        magnetTimer = magnetBubble.RemainingTime();
+        return chickenFeed.RemainingTime();
     }
 
-    public float BuffTimer (string buffType)
+    public float GetPenguinFeedTimer()
     {
-        if (buffType == "chickenFeed")
-            return chickenFeedTimer;
-        if (buffType == "penguinFeed")
-            return penguinFeedTimer;
-        if (buffType == "bubbleGun")
-            return bubbleGunTimer;
-        if (buffType == "magnet")
-            return magnetTimer;
+        return penguinFeed.RemainingTime();
+    }
 
-        return 0;
+    public float GetBubbleGunTimer()
+    {
+        return bubbleGun.RemainingTime();
+    }
+
+    public float GetMagnetTimer()
+    {
+        return magnetBubble.RemainingTime();
     }
 }

@@ -77,6 +77,7 @@ public class ScoreManager : MonoBehaviour
         PlayGamesScript.AddScoreToLeaderboard(GPGSIds.leaderboard_chicky_master, highScore.highestChicken);
         PlayGamesScript.AddScoreToLeaderboard(GPGSIds.leaderboard_pengi_master, highScore.highestPenguin);
 #endif
+        GameDataManager.instance.SaveGame();
     }
 
     void LoadHighScore()

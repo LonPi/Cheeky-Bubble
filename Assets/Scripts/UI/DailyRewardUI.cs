@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class DailyRewardUI : MonoBehaviour
 {
     // components belongs to this game object
-    public Text myButtonText;
     Button myButton;
     Image myImage;
-
+    int rewardCount = 5;
+    public GameObject coin;
+    public ParticleSystem sparkle;
+    bool isPlayingAnimation;
 
     void Start()
     {
@@ -26,30 +28,44 @@ public class DailyRewardUI : MonoBehaviour
         {
             myButton.enabled = true;
             myImage.enabled = true;
-            myButtonText.enabled = true;
         }
         else
         {
             myButton.enabled = false;
             myImage.enabled = false;
-            myButtonText.enabled = false;
         }
     }
 
     public void DisplayRewardMessage()
     {
-        // for now just credit 100 chicken into inventory
-        int chickenCount = GameDataManager.instance.GetCaughtChickenCount();
-        chickenCount += 100;
-        Debug.Log("crediting chicken count to: " + chickenCount);
-        GameDataManager.instance.SetChickenCount(chickenCount);
-        GameDataManager.instance.SetDailyRewardClaimed(true);
-        GameDataManager.instance.SaveGame();
+        if (!isPlayingAnimation)
+        {
+            SoundManager.Instance.ShopPlayOneShot(SoundManager.Instance.shopBuy);
+            StartCoroutine(CollectDailyReward());
+        }
+
     }
 
     public void PressOk()
     {
         // TODO: credit reward into inventory
         // set claim flag to true so that reward doesnt show anymore for that day
+    }
+
+    IEnumerator CollectDailyReward()
+    {
+        isPlayingAnimation = true;
+        Instantiate(sparkle, this.transform.position, Quaternion.identity).name = "sparkle";
+        for (int x = 0; x < rewardCount; x++)
+        {
+            Instantiate(coin, this.transform.position, Quaternion.identity).name = "Penguin_Drop";
+            yield return new WaitForSeconds(0.2f);
+        }
+        sparkle.Stop();
+        GameDataManager.instance.SetDailyRewardClaimed(true);
+        Debug.Log("CollectDailyReward: penguin count: " + GameDataManager.instance.GetCaughtPenguinCount());
+        yield return new WaitForSeconds(0.2f * rewardCount);
+        GameDataManager.instance.SaveGame();
+        isPlayingAnimation = false;
     }
 }

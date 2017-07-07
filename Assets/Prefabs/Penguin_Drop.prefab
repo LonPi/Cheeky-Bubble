@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 58428486217824352}
   - component: {fileID: 114009725465023532}
   - component: {fileID: 95677988176890094}
-  m_Layer: 14
+  m_Layer: 5
   m_Name: Penguin_Drop
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -17,7 +17,10 @@ public class GameManager : MonoBehaviour
     public Scene currentScene { get; set; }
     public CanvasUI _canvasUI { get; set; }
     public bool startGame { get; set; }
+    public bool isLoadingGameFile { get; set; }
     public int coinToAdd;
+    public int combo;
+    public int multiplier;
 
     string previousSceneName;
 
@@ -28,13 +31,12 @@ public class GameManager : MonoBehaviour
         else if (instance != this)
             Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
-        
+        isLoadingGameFile = true; // google play script sign in flag
     }
 
     void Start()
     {
         InitReferences();
-        coinToAdd = 0;
     }
 
     void InitReferences()
@@ -62,6 +64,10 @@ public class GameManager : MonoBehaviour
             _chickenGeneratorRight = go.GetComponent<ChickenGenerator>();
             _penguinGeneratorRight = go.GetComponent<PenguinGenerator>();
         }
+
+        coinToAdd = 0;
+        combo = 0;
+        multiplier = 5;
     }
 
     public void DisableUserInput()
@@ -79,12 +85,18 @@ public class GameManager : MonoBehaviour
         StartCoroutine(_ReloadScene());
     }
 
-    public void SetCoin(int combo, int multiplier)
+    public void SetCoin(int add)
     {
-        if (combo == 0)
+        if (add == 0)
+        {
+            combo = 0;
             coinToAdd = 0;
+        }
         else
+        {
+            combo++;
             coinToAdd = combo / multiplier;
+        }
         //Debug.Log(combo + " - " + multiplier + " to " + coinToAdd);
     }
 
@@ -148,6 +160,11 @@ public class GameManager : MonoBehaviour
     public void OnUnpause()
     {
         EnableUserInput();
+    }
+
+    public void OnFinishedLoading()
+    {
+        GoToScene("casual");
     }
 
     void OnEnable()

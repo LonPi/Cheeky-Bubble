@@ -67,6 +67,7 @@ public class PenguinFeed : MonoBehaviour {
 
     void EquipPenguinFeed()
     {
+        // peguin only exists in competitive
         if (GameManager.instance.currentScene.name == "competitive")
         {
             generatorLeft.EquipPenguinFeed(reducedTime);
@@ -92,25 +93,29 @@ public class PenguinFeed : MonoBehaviour {
         timerStart = true;
         // time is stackable
         timer += duration;
+        GameDataManager.instance.SaveGame();
     }
 
-    public void OnLoadGame()
+    public void OnFinishedLoading()
     {
         // if there exists penguin feed in inventory, start count down when we start the game
         if (GameDataManager.instance.GetPenguinFeedCount() > 0)
         {
             timerStart = true;
-            timer = GameDataManager.instance.GetPenguinFeedCount() * duration;
+            timer = GameDataManager.instance.GetLoadedPenguinFeedTimer();
+            purchased = true;
+            EquipPenguinFeed();
         }
     }
 
     public void OnPurchaseExpired()
     {
-        Debug.Log("Penguin feed expired");
         UnequipPenguinFeed();
         purchased = false;
         timerStart = false;
         timer = 0;
+        Debug.Log("Penguin Feed expired.. timer: " + timer + " penguin feed count: " + GameDataManager.instance.GetPenguinFeedCount());
+        GameDataManager.instance.SaveGame();
     }
 
     public float RemainingTime()

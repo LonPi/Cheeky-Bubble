@@ -19,6 +19,8 @@ public class Chicken : MonoBehaviour, FlyingObjectInterface {
     bool velocityIncreased;
     bool isAttractableToBubble;
     bool isFreeFalling;
+    bool isInsideBubble;
+
     // Use this for initialization
     void Start () {
         rb2d = GetComponent<Rigidbody2D>();
@@ -37,7 +39,7 @@ public class Chicken : MonoBehaviour, FlyingObjectInterface {
 
     private void FixedUpdate()
     {
-        isAttractableToBubble = !onGround && !isBeingAttractedIntoBubble && !isFreeFalling;
+        isAttractableToBubble = !onGround && !isBeingAttractedIntoBubble && !isFreeFalling &&!isInsideBubble;
         
         // this is not supposed to happen, log an error if that happens
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Fly") && onGround)
@@ -55,7 +57,7 @@ public class Chicken : MonoBehaviour, FlyingObjectInterface {
             rb2d.isKinematic = true;
             rb2d.velocity = Vector2.zero;
             myCollider.enabled = false;
-            StartCoroutine(ReturnObjectToPoolWithDelay());
+            AnimateCoin();
         }
 
         if (isBeingAttractedIntoBubble)
@@ -65,6 +67,7 @@ public class Chicken : MonoBehaviour, FlyingObjectInterface {
                 rb2d.position = Vector2.Lerp(rb2d.position, bubbleCollider.gameObject.transform.position, lerpAmount);
                 lerpAmount += 0.01f;
                 animator.SetTrigger("chickenCatch");
+                isInsideBubble = true;
             }
             else
             {
@@ -115,7 +118,7 @@ public class Chicken : MonoBehaviour, FlyingObjectInterface {
 
     public void IncreaseVelocity()
     {
-        if (velocityIncreased || isFreeFalling || onGround || bubbleCollider /* dont increase speed if chicken is still inside a bubble*/)
+        if (velocityIncreased || isFreeFalling || onGround || bubbleCollider /* dont increase speed if chicken is still inside a bubble*/ || isInsideBubble)
             return;
 
         speed = speed + speedIncreaseAmt;
@@ -131,6 +134,7 @@ public class Chicken : MonoBehaviour, FlyingObjectInterface {
         isAttractableToBubble = false;
         onGround = false;
         isFreeFalling = false;
+        isInsideBubble = false;
         bubbleCollider = null;
         velocityIncreased = false;
         lerpAmount = 0.01f;
@@ -167,12 +171,13 @@ public class Chicken : MonoBehaviour, FlyingObjectInterface {
         }
     }
 
-    IEnumerator ReturnObjectToPoolWithDelay()
+    void AnimateCoin()
     {
-        yield return new WaitForSeconds(0);
         Instantiate(coin, this.transform.position, Quaternion.identity).name = "Chicken_Drop";
         for (int x = 0; x < GameManager.instance.coinToAdd; x++)
+        {
             Instantiate(coin, this.transform.position, Quaternion.identity).name = "Chicken_Drop";
+        }
         PoolManager.instance.ReturnObjectToPool(gameObject);
     }
 }

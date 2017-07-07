@@ -69,12 +69,12 @@ public class ChickenFeed : MonoBehaviour {
     public void OnPurchase()
     {
         GameDataManager.instance.IncrementChickenFeedCount();
-        Debug.Log("Purchased chicken feed, count: " + GameDataManager.instance.GetChickenFeedCount());
-
         purchased = true;
         timerStart = true;
         // time is stackable
         timer += duration;
+        Debug.Log("Purchased chicken feed, count: " + GameDataManager.instance.GetChickenFeedCount() + " saving game: timer=" + timer + " count: " + GameDataManager.instance.GetChickenFeedCount());
+        GameDataManager.instance.SaveGame();
     }
 
     void EquipChickenFeed()
@@ -98,20 +98,23 @@ public class ChickenFeed : MonoBehaviour {
 
     public void OnPurchaseExpired()
     {
-        Debug.Log("Chicken feed expired");
         UnequipChickenFeed();
         purchased = false;
         timerStart = false;
         timer = 0;
+        Debug.Log("Chicken Feed expired.. timer: " + timer + " penguin feed count: " + GameDataManager.instance.GetPenguinFeedCount());
+        GameDataManager.instance.SaveGame();
     }
 
-    public void OnLoadGame()
+    public void OnFinishedLoading()
     {
         // if there exists chicken feed in inventory, start count down when we start the game
         if (GameDataManager.instance.GetChickenFeedCount() > 0)
         {
             timerStart = true;
-            timer = GameDataManager.instance.GetChickenFeedCount() * duration;
+            timer = GameDataManager.instance.GetLoadedChickenFeedTimer();
+            purchased = true;
+            EquipChickenFeed();
         }
     }
 

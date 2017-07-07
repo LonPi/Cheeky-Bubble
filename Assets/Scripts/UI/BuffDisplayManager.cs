@@ -24,10 +24,10 @@ public class BuffDisplayManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        chickenBuffTime = BuffEffectManager.instance.BuffTimer("chickenFeed");
-        penguinBuffTime = BuffEffectManager.instance.BuffTimer("penguinFeed");
-        bubbleBuffTime = BuffEffectManager.instance.BuffTimer("bubbleGun");
-        magnetBuffTime = BuffEffectManager.instance.BuffTimer("magnet");
+        chickenBuffTime = BuffEffectManager.instance.GetChickenFeedTimer();
+        penguinBuffTime = BuffEffectManager.instance.GetPenguinFeedTimer();
+        bubbleBuffTime = BuffEffectManager.instance.GetBubbleGunTimer();
+        magnetBuffTime = BuffEffectManager.instance.GetMagnetTimer();
 
 
         if (chickenBuffTime > 0f)

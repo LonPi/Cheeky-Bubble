@@ -67,18 +67,25 @@ public class MagnetBubble : MonoBehaviour {
         timerStart = true;
         timer += duration;
         purchased = true;
+        GameDataManager.instance.SaveGame();
     }
 
     void EquipMagnetBubble()
     {
-        // need this variable to globally control all the bubbles in the scene
-        BlowBubble.Instance.MagnetBubblePurchased = true;
+        if (GameManager.instance.currentScene.name == "competitive" || GameManager.instance.currentScene.name == "casual")
+        {
+            // need this variable to globally control all the bubbles in the scene
+            BlowBubble.Instance.MagnetBubblePurchased = true;
+        }
     }
 
     void UnequipMagnetBubble()
     {
-        // need this variable to globally control all the bubbles in the scene
-        BlowBubble.Instance.MagnetBubblePurchased = false;
+        if (GameManager.instance.currentScene.name == "competitive" || GameManager.instance.currentScene.name == "casual")
+        {
+            // need this variable to globally control all the bubbles in the scene
+            BlowBubble.Instance.MagnetBubblePurchased = false;
+        }
     }
 
     public void OnPurchaseExpired()
@@ -87,15 +94,19 @@ public class MagnetBubble : MonoBehaviour {
         purchased = false;
         timerStart = false;
         timer = 0;
+        Debug.Log("Magnet Bubble expired.. timer: " + timer + " magnet count: " + GameDataManager.instance.GetMagnetCount());
+        GameDataManager.instance.SaveGame();
     }
 
-    public void OnLoadGame()
+    public void OnFinishedLoading()
     {
         // if there exists magnet in inventory, start count down when we start the game
         if (GameDataManager.instance.GetMagnetCount() > 0)
         {
             timerStart = true;
-            timer = GameDataManager.instance.GetMagnetCount() * duration;
+            timer = GameDataManager.instance.GetLoadedMagnetTimer();
+            purchased = true;
+            EquipMagnetBubble();
         }
     }
 

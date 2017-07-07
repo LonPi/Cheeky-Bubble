@@ -224,26 +224,43 @@ public class SaveLoadManager : MonoBehaviour
 
     private void OnSavedGameDataRead(SavedGameRequestStatus status, byte[] savedData)
     {
+        bool exceptionOccured = false;
+        GameData cloudData = null;
+        GameData localData = LoadLocal();
+
         if (status == SavedGameRequestStatus.Success)
         {
-            // Deserialize byte array
-            BinaryFormatter bf = new BinaryFormatter();
-            MemoryStream memStream = new MemoryStream();
-            GameData cloudData;
-            memStream.Write(savedData, 0, savedData.Length);
-            memStream.Seek(0, SeekOrigin.Begin);
-            cloudData = (GameData)bf.Deserialize(memStream);
+            try
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                MemoryStream memStream = new MemoryStream();
+                memStream.Write(savedData, 0, savedData.Length);
+                memStream.Seek(0, SeekOrigin.Begin);
+                cloudData = (GameData)bf.Deserialize(memStream);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                exceptionOccured = true;
+            }
 
-            // Get local copy of data
-            GameData localData = LoadLocal();
-
-            // load variable to game
-            Debug.Log("SaveGameManager: OnSavedGameDataRead: finally desererializing data");
-            GameDataManager.instance.LoadGameVariables(cloudData, localData);
+            if (exceptionOccured)
+            {
+                Debug.Log("OnSavedGameDataRead(): Exception Caught, falling back to loading from local file...");
+                GameDataManager.instance.LoadGameVariables(localData);
+            }
+            else
+            {
+                // load variable to game
+                Debug.Log("SaveGameManager: OnSavedGameDataRead: finally desererializing data");
+                GameDataManager.instance.LoadGameVariables(cloudData, localData);
+            }
+            
         }
         else
         {
-            Debug.Log("OnSavedGameDataRead(): Error: " + status);
+            Debug.Log("OnSavedGameDataRead(): Error: " + status + ".. loading local file...");
+            GameDataManager.instance.LoadGameVariables(localData);
         }
     }
 
@@ -273,6 +290,10 @@ public class GameData
     int chickenFeedCount;
     int penguinFeedCount;
     int totalItemsPurchasedToDate;
+    float bubbleGunTimer;
+    float magnetTimer;
+    float chickenFeedTimer;
+    float penguinFeedTimer;
     DateTime lastLoginTime;
     bool dailyRewardClaimed;
 
@@ -334,6 +355,27 @@ public class GameData
         return totalItemsPurchasedToDate;
     }
 
+    public float GetBubbleGunTimer()
+    {
+        return bubbleGunTimer;
+    }
+
+    public float GetMagnetTimer()
+    {
+        return magnetTimer;
+    }
+
+    public float GetPenguinFeedTimer()
+    {
+        return penguinFeedTimer;
+    }
+
+    public float GetChickenFeedTimer()
+    {
+        return chickenFeedTimer;
+    }
+
+
     // setters
     public void SetLastLoginTime(DateTime date)
     {
@@ -384,6 +426,26 @@ public class GameData
     public void SetTotalItemsPurchasedToDate(int total)
     {
         this.totalItemsPurchasedToDate = total;
+    }
+
+    public void SetBubbleGunTimer(float timer)
+    {
+        this.bubbleGunTimer = timer;
+    }
+
+    public void SetMagnetTimer(float timer)
+    {
+        this.magnetTimer = timer;
+    }
+
+    public void SetPenguinFeedTimer(float timer)
+    {
+        this.penguinFeedTimer = timer;
+    }
+
+    public void SetChickenFeedTimer(float timer)
+    {
+        this.chickenFeedTimer = timer;
     }
 
 }

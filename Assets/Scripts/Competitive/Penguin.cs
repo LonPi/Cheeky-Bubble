@@ -21,6 +21,7 @@ public class Penguin : MonoBehaviour, FlyingObjectInterface
     float speed;
     bool isFreeFalling;
     bool velocityIncreased;
+    bool isInsideBubble;
 
     // Use this for initialization
     void Start()
@@ -41,7 +42,7 @@ public class Penguin : MonoBehaviour, FlyingObjectInterface
 
     private void FixedUpdate()
     {
-        isAttractableToBubble = !onGround && !isBeingAttractedIntoBubble && !isFreeFalling;
+        isAttractableToBubble = !onGround && !isBeingAttractedIntoBubble && !isFreeFalling &&!isInsideBubble;
 
         // this is not supposed to happen, log an error if that happens
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Fly") && onGround)
@@ -114,7 +115,7 @@ public class Penguin : MonoBehaviour, FlyingObjectInterface
 
     public void IncreaseVelocity()
     {
-        if (velocityIncreased || isFreeFalling || onGround || bubbleCollider /* dont increase speed if penguin is still inside a bubble*/)
+        if (velocityIncreased || isFreeFalling || onGround || bubbleCollider /* dont increase speed if penguin is still inside a bubble*/ || isInsideBubble)
             return;
 
         speed = speed + speedIncreaseAmt;
@@ -130,6 +131,7 @@ public class Penguin : MonoBehaviour, FlyingObjectInterface
         isAttractableToBubble = false;
         onGround = false;
         isFreeFalling = false;
+        isInsideBubble = false;
         bubbleCollider = null;
         velocityIncreased = false;
         lerpAmount = 0.01f;

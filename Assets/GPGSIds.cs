@@ -24,21 +24,9 @@
 
 public static class GPGSIds
 {
-        public const string achievement_dummy_achievement = "CgkIypzD96oDEAIQAQ"; // <GPGSID>
-        public const string achievement_bubble_blower = "CgkIypzD96oDEAIQCw"; // <GPGSID>
         public const string leaderboard_pengi_master = "CgkIypzD96oDEAIQDw"; // <GPGSID>
-        public const string achievement_shopaholic = "CgkIypzD96oDEAIQCA"; // <GPGSID>
-        public const string achievement_pengi_catcher = "CgkIypzD96oDEAIQBg"; // <GPGSID>
         public const string leaderboard_chicky_master = "CgkIypzD96oDEAIQDg"; // <GPGSID>
-        public const string achievement_too_rich = "CgkIypzD96oDEAIQCg"; // <GPGSID>
-        public const string achievement_chicky_catcher = "CgkIypzD96oDEAIQAw"; // <GPGSID>
-        public const string achievement_bubble_lover = "CgkIypzD96oDEAIQDA"; // <GPGSID>
-        public const string achievement_pengi_trapper = "CgkIypzD96oDEAIQBQ"; // <GPGSID>
-        public const string achievement_chicky_trapper = "CgkIypzD96oDEAIQAg"; // <GPGSID>
-        public const string achievement_pengi_hunter = "CgkIypzD96oDEAIQBw"; // <GPGSID>
-        public const string achievement_chicky_hunter = "CgkIypzD96oDEAIQBA"; // <GPGSID>
-        public const string achievement_bubble_master = "CgkIypzD96oDEAIQDQ"; // <GPGSID>
-        public const string achievement_big_spender = "CgkIypzD96oDEAIQCQ"; // <GPGSID>
+        public const string achievement_dummy_achievement = "CgkIypzD96oDEAIQAQ"; // <GPGSID>
 
 }
 

@@ -33,11 +33,8 @@ public class PlayGamesScript : MonoBehaviour {
         Debug.Log("PlayGamesScript: Signin()");
         Social.localUser.Authenticate(success => {
             Debug.Log("Sign in status: " + success);
-            if (success)
-            {
-                Debug.Log("Loading data from cloud...");
-                GameDataManager.instance.LoadGame();
-            }
+            Debug.Log("Loading data...calling GameDataManager.instance.LoadGame()");
+            GameDataManager.instance.LoadGame();
         });
     }
 
@@ -51,7 +48,7 @@ public class PlayGamesScript : MonoBehaviour {
         PlayGamesPlatform.Instance.IncrementAchievement(id, stepsToIncrement, success => { });
     }
 
-    public static void ShowAchievementsUI()
+    public void ShowAchievementsUI()
     {
         Social.ShowAchievementsUI();
     }
@@ -61,7 +58,7 @@ public class PlayGamesScript : MonoBehaviour {
         Social.ReportScore(score, leaderboardId, success => { });
     }
 
-    public static void ShowLeaderboardsUI()
+    public void ShowLeaderboardsUI()
     {
         Social.ShowLeaderboardUI();
     }
