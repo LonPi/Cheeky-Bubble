@@ -37,7 +37,9 @@ PlayerSettings:
     y: 0
     width: 1
     height: 1
-  m_SplashScreenLogos: []
+  m_SplashScreenLogos:
+  - logo: {fileID: 21300000, guid: 1f35a459fa50e26428a4ed00c4d9a5a5, type: 3}
+    duration: 2
   m_SplashScreenBackgroundLandscape: {fileID: 1, guid: 00000000000000000000000000000000,
     type: 0}
   m_SplashScreenBackgroundPortrait: {fileID: 0}
@@ -120,7 +122,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.002
+  bundleVersion: 1.0
   preloadedAssets: []
   metroInputSource: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -140,7 +142,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.BlueKumaGames.CheekyBubble
   buildNumber: {}
-  AndroidBundleVersionCode: 2
+  AndroidBundleVersionCode: 4
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1

@@ -24,9 +24,8 @@
 
 public static class GPGSIds
 {
-        public const string leaderboard_pengi_master = "CgkIypzD96oDEAIQDw"; // <GPGSID>
-        public const string leaderboard_chicky_master = "CgkIypzD96oDEAIQDg"; // <GPGSID>
-        public const string achievement_dummy_achievement = "CgkIypzD96oDEAIQAQ"; // <GPGSID>
+        public const string leaderboard_chicky_master = "CgkIypzD96oDEAIQEA"; // <GPGSID>
+        public const string leaderboard_pengi_master = "CgkIypzD96oDEAIQEQ"; // <GPGSID>
 
 }
 

@@ -46,19 +46,15 @@ public class DailyRewardUI : MonoBehaviour
 
     }
 
-    public void PressOk()
-    {
-        // TODO: credit reward into inventory
-        // set claim flag to true so that reward doesnt show anymore for that day
-    }
-
     IEnumerator CollectDailyReward()
     {
         isPlayingAnimation = true;
         Instantiate(sparkle, this.transform.position, Quaternion.identity).name = "sparkle";
         for (int x = 0; x < rewardCount; x++)
         {
-            Instantiate(coin, this.transform.position, Quaternion.identity).name = "Penguin_Drop";
+            //Instantiate(coin, this.transform.position, Quaternion.identity).name = "Penguin_Drop";
+            GameObject coinObj = PoolManager.instance.GetObjectfromPool(coin);
+            coinObj.GetComponent<CoinFly>().InitParams(transform.position, CoinFly.Type.PENGUIN);
             yield return new WaitForSeconds(0.2f);
         }
         sparkle.Stop();

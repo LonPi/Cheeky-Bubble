@@ -58,6 +58,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countdownTimerStartVal: 30
   coinToAdd: 0
+  combo: 0
+  multiplier: 0
 --- !u!114 &114070257053647024
 MonoBehaviour:
   m_ObjectHideFlags: 1

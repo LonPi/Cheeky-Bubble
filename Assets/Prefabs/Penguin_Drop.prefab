@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 58428486217824352}
   - component: {fileID: 114009725465023532}
   - component: {fileID: 95677988176890094}
+  - component: {fileID: 114543941484135126}
   m_Layer: 5
   m_Name: Penguin_Drop
   m_TagString: Untagged
@@ -84,6 +85,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0282451b631a6f4e9eae063d698e1f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114543941484135126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1349649935883866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aac9daf1dcf4224da570893577c7a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212794531963038110

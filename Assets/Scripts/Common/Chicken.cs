@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chicken : MonoBehaviour, FlyingObjectInterface {
+public class Chicken : MonoBehaviour, FlyingObjectInterface
+{
 
     public bool isBeingAttractedIntoBubble { get; set; }
     public CircleCollider2D bubbleCollider { get; set; }
@@ -22,7 +23,8 @@ public class Chicken : MonoBehaviour, FlyingObjectInterface {
     bool isInsideBubble;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         rb2d = GetComponent<Rigidbody2D>();
         myCollider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
@@ -39,15 +41,15 @@ public class Chicken : MonoBehaviour, FlyingObjectInterface {
 
     private void FixedUpdate()
     {
-        isAttractableToBubble = !onGround && !isBeingAttractedIntoBubble && !isFreeFalling &&!isInsideBubble;
-        
+        isAttractableToBubble = !onGround && !isBeingAttractedIntoBubble && !isFreeFalling && !isInsideBubble;
+
         // this is not supposed to happen, log an error if that happens
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Fly") && onGround)
         {
             Debug.LogError("Something weird happened: isInPool: " + PoolManager.instance.isInPool(gameObject) + " position: " + transform.position);
         }
 
-        if (isFreeFalling && Mathf.Abs(rb2d.velocity.x) > 0 )
+        if (isFreeFalling && Mathf.Abs(rb2d.velocity.x) > 0)
         {
             Debug.LogError("bird is straying, id:" + this.GetInstanceID() + " velocity: " + rb2d.velocity);
         }
@@ -173,11 +175,16 @@ public class Chicken : MonoBehaviour, FlyingObjectInterface {
 
     void AnimateCoin()
     {
-        Instantiate(coin, this.transform.position, Quaternion.identity).name = "Chicken_Drop";
+        GameObject CoinObj = PoolManager.instance.GetObjectfromPool(coin);
+        CoinObj.GetComponent<CoinFly>().InitParams(transform.position, CoinFly.Type.CHICKEN);
+
         for (int x = 0; x < GameManager.instance.coinToAdd; x++)
         {
-            Instantiate(coin, this.transform.position, Quaternion.identity).name = "Chicken_Drop";
+            CoinObj = PoolManager.instance.GetObjectfromPool(coin);
+            CoinObj.GetComponent<CoinFly>().InitParams(transform.position, CoinFly.Type.CHICKEN);
         }
+
+        // return chicken back to pool
         PoolManager.instance.ReturnObjectToPool(gameObject);
     }
 }

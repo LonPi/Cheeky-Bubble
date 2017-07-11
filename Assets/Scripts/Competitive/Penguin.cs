@@ -55,7 +55,7 @@ public class Penguin : MonoBehaviour, FlyingObjectInterface
             rb2d.isKinematic = true;
             rb2d.velocity = Vector2.zero;
             myCollider.enabled = false;
-            StartCoroutine(ReturnObjectToPoolWithDelay());
+            AnimateCoin();
         }
 
         if (isBeingAttractedIntoBubble)
@@ -167,10 +167,12 @@ public class Penguin : MonoBehaviour, FlyingObjectInterface
         }
     }
 
-    IEnumerator ReturnObjectToPoolWithDelay()
+    void AnimateCoin()
     {
-        yield return new WaitForSeconds(0);
-        Instantiate(coin, this.transform.position, Quaternion.identity).name = "Penguin_Drop";
+        GameObject CoinObj = PoolManager.instance.GetObjectfromPool(coin);
+        CoinObj.GetComponent<CoinFly>().InitParams(transform.position, CoinFly.Type.PENGUIN);
+
+        // return penguin object back to pool
         PoolManager.instance.ReturnObjectToPool(gameObject);
     }
 }

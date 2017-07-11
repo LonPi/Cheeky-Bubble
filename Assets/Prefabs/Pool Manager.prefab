@@ -55,4 +55,6 @@ MonoBehaviour:
   - {fileID: 1190784448941408, guid: 94bc15ea17742c44ea277b41e830599d, type: 2}
   - {fileID: 1360668073817856, guid: 35b48e2b73c915043a67d67ca755fdf1, type: 2}
   - {fileID: 1512726574066492, guid: 9990cf2a11084824999fb751950fa34f, type: 2}
+  - {fileID: 1196841748666834, guid: a2d72d97873cd4042bcc4765e9135cf3, type: 2}
+  - {fileID: 1349649935883866, guid: 839a942bcf8815e41844a0b9c13eff98, type: 2}
   InitialPoolSize: 0

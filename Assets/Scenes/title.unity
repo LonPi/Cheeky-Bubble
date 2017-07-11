@@ -150,7 +150,7 @@ Prefab:
     - target: {fileID: 114057237523038548, guid: 17a1290cdee6fd744a21ffefbb760387,
         type: 2}
       propertyPath: countdownTimerStartVal
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 17a1290cdee6fd744a21ffefbb760387, type: 2}

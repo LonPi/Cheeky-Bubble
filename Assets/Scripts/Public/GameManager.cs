@@ -18,9 +18,9 @@ public class GameManager : MonoBehaviour
     public CanvasUI _canvasUI { get; set; }
     public bool startGame { get; set; }
     public bool isLoadingGameFile { get; set; }
-    public int coinToAdd;
-    public int combo;
-    public int multiplier;
+    public int coinToAdd { get; set; }
+    public int combo { get; set; }
+    public int multiplier { get; set; }
 
     string previousSceneName;
 

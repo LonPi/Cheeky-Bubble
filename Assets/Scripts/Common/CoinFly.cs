@@ -7,14 +7,12 @@ public class CoinFly : MonoBehaviour {
     GameObject Target;
     Vector2 dest;
     Vector3 finalScale = new Vector3(0,0,0);
-    
-	// Use this for initialization
-	void Start ()
+    Type objType;
+
+    public enum Type
     {
-        if (gameObject.name == "Chicken_Drop")
-            dest = new Vector2(-2.756f, 4.541f);
-        else if (gameObject.name == "Penguin_Drop")
-            dest = new Vector2(-0.449f, 4.541f);
+        CHICKEN,
+        PENGUIN
     }
 	
 	// Update is called once per frame
@@ -23,11 +21,21 @@ public class CoinFly : MonoBehaviour {
         gameObject.transform.localScale = Vector3.Lerp(gameObject.transform.localScale, finalScale, Time.deltaTime*2);
         if (gameObject.transform.position.y > 4f)
         {
-            if (gameObject.name == "Chicken_Drop")
+            if (objType == Type.CHICKEN)
                 GameDataManager.instance.IncrementChickenCount();
-            else if (gameObject.name == "Penguin_Drop")
+            if (objType == Type.PENGUIN)
                 GameDataManager.instance.IncrementPenguinCount();
-            Destroy(gameObject);
+            PoolManager.instance.ReturnObjectToPool(gameObject);
         }
+    }
+
+    public void InitParams(Vector2 position, Type type)
+    {
+        transform.position = position;
+        if (objType == Type.CHICKEN)
+            dest = new Vector2(-2.756f, 4.541f);
+        if (objType == Type.PENGUIN)
+            dest = new Vector2(-0.449f, 4.541f);
+        objType = type;
     }
 }
